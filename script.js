@@ -1,12 +1,10 @@
 /* ==========================================================
-   DUSTDEEP — Minimal Final JS Package
+   DUSTDEEP — Minimal Interactive JS + Google Sheets API
 ========================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
-  document.body.classList.add("loaded");
   fadeSections();
   setupContactForm();
-  loadLatestTikTok(); // optional auto TikTok loader
 });
 
 /* ----------------------------------------------------------
@@ -26,11 +24,12 @@ function fadeSections() {
 }
 
 /* ----------------------------------------------------------
-   CONTACT FORM (FORMSPREE — FIXED)
+   CONTACT FORM → GOOGLE SHEETS (Apps Script)
 ---------------------------------------------------------- */
 function setupContactForm() {
   const form = document.getElementById("contact-form");
   const msg = document.getElementById("form-msg");
+
   if (!form) return;
 
   form.addEventListener("submit", async (e) => {
@@ -40,44 +39,21 @@ function setupContactForm() {
     const formData = new FormData(form);
 
     try {
-      const res = await fetch("https://formspree.io/f/managdj", {
-        method: "POST",
-        body: formData,
-        headers: { "Accept": "application/json" }
-      });
+      const res = await fetch(
+        "https://script.google.com/macros/s/AKfycbw3wCAsTeSS7cM5Plxd8ufjzpdrkdRzNR4RJUP3fpKfB6uf1IYv9hL3ZEC987KLgOKoyw/exec",
+        {
+          method: "POST",
+          mode: "no-cors", 
+          body: formData
+        }
+      );
 
-      if (res.ok) {
-        msg.textContent = "Thanks for reaching out — we’ll be in touch soon!";
-        form.reset();
-      } else {
-        msg.textContent = "Something went wrong. Try again.";
-      }
-    } catch {
-      msg.textContent = "Network error — try again.";
+      msg.textContent = "Thanks for reaching out — we’ll be in touch soon!";
+      form.reset();
+
+    } catch (err) {
+      msg.textContent = "Something went wrong. Try again.";
+      console.error(err);
     }
   });
-}
-
-/* ----------------------------------------------------------
-   AUTO TIKTOK EMBED (keeps your previous logic)
----------------------------------------------------------- */
-async function loadLatestTikTok() {
-  try {
-    const res = await fetch("/api/latest-tiktok");
-    const data = await res.json();
-
-    if (!data.videoId) return;
-
-    const embed = `
-      <blockquote class="tiktok-embed"
-        cite="https://www.tiktok.com/@dustdeepmusic/video/${data.videoId}"
-        data-video-id="${data.videoId}">
-      </blockquote>
-      <script async src="https://www.tiktok.com/embed.js"></script>
-    `;
-
-    document.getElementById("tiktok-wrapper").innerHTML = embed;
-  } catch (e) {
-    console.error("Failed to load TikTok:", e);
-  }
 }
