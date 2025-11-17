@@ -1,6 +1,5 @@
 /* ==========================================================
-   DUSTDEEP — Automated SoundCloud Engine + Contact System (V4)
-   Ultra-optimized | Fade Motion | Gradient Theme Support
+   DUSTDEEP — Automated SoundCloud Engine + Contact System
 ========================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -11,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /* ----------------------------------------------------------
-   SECTION FADE-IN + MOTION
+   SECTION FADE-IN
 ---------------------------------------------------------- */
 function fadeSections() {
   const observer = new IntersectionObserver(
@@ -26,8 +25,9 @@ function fadeSections() {
 }
 
 /* ----------------------------------------------------------
-   ARTIST FEEDS (SoundCloud RSS → Optimized Cards)
+   SOUNDLOUD AUTO RELEASES (RSS → JSON → Grid)
 ---------------------------------------------------------- */
+
 const ARTISTS = {
   nyral: "https://soundcloud.com/nyralmusic",
   akasyon: "https://soundcloud.com/akasyonmusic",
@@ -41,52 +41,39 @@ async function loadReleases() {
   for (const key in ARTISTS) {
     const feed = await fetchRSS(ARTISTS[key]);
 
-    // Artist section
+    // Fill per-artist section
     populateGrid(`${key}Releases`, feed.slice(0, 4));
 
-    // For global
+    // Add to global list
     all.push(...feed);
   }
 
-  // Newest first
+  // Sort newest → oldest
   all.sort((a, b) => b.date - a.date);
 
+  // Fill “New Releases”
   populateGrid("newReleasesGrid", all.slice(0, 12));
 }
 
-/* ----------------------------------------------------------
-   RSS FETCH + FORMATTER
----------------------------------------------------------- */
 async function fetchRSS(url) {
-  const endpoint =
-    `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(
-      url + "/tracks"
-    )}`;
+  const rssURL = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(
+    url + "/tracks"
+  )}`;
 
-  try {
-    const data = await fetch(endpoint).then(r => r.json());
-    if (!data.items) return [];
+  const data = await fetch(rssURL).then(r => r.json());
+  if (!data.items) return [];
 
-    return data.items.map(i => ({
-      title: i.title,
-      url: i.link,
-      artwork:
-        i.thumbnail?.replace("-t500x500", "-t300x300") ||
-        "assets/default.jpg",
-      date: new Date(i.pubDate)
-    }));
-  } catch (err) {
-    console.error("RSS ERROR:", err);
-    return [];
-  }
+  return data.items.map(i => ({
+    title: i.title,
+    url: i.link,
+    artwork: i.thumbnail?.replace("-t500x500", "-t300x300"),
+    date: new Date(i.pubDate)
+  }));
 }
 
-/* ----------------------------------------------------------
-   RELEASE GRID
----------------------------------------------------------- */
 function populateGrid(id, tracks) {
   const el = document.getElementById(id);
-  if (!el || !tracks.length) return;
+  if (!el || !tracks?.length) return;
 
   el.innerHTML = tracks
     .map(
@@ -103,7 +90,7 @@ function populateGrid(id, tracks) {
 }
 
 /* ----------------------------------------------------------
-   CONTACT FORM — FORMSPREE ENDPOINT (LIVE)
+   CONTACT FORM — FORMSPREE ENDPOINT
 ---------------------------------------------------------- */
 function setupContactForm() {
   const form = document.getElementById("contact-form");
@@ -113,9 +100,10 @@ function setupContactForm() {
 
   form.addEventListener("submit", async e => {
     e.preventDefault();
-    msg.textContent = "Sending...";
 
-    const data = {
+    msg.textContent = "Sending…";
+
+    const payload = {
       name: form.name.value,
       email: form.email.value,
       artist: form.artist.value,
@@ -126,7 +114,7 @@ function setupContactForm() {
       const res = await fetch("https://formspree.io/f/managdyj", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
+        body: JSON.stringify(payload)
       });
 
       if (res.ok) {
@@ -135,8 +123,8 @@ function setupContactForm() {
       } else {
         msg.textContent = "Something went wrong.";
       }
-    } catch {
-      msg.textContent = "Network error. Try again.";
+    } catch (err) {
+      msg.textContent = "Network error — try again.";
     }
   });
 }
