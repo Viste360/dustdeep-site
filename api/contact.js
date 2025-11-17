@@ -1,23 +1,27 @@
-// ============================================================
-//  DUSTDEEP CONTACT API — Email Forward (Serverless)
-// ============================================================
+function setupContactForm() {
+  const form = document.getElementById("contact-form");
+  const msg = document.getElementById("form-msg");
 
-export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    return res.status(405).json({ success: false, error: "Method not allowed" });
-  }
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    msg.textContent = "Sending...";
 
-  const { name, email, artist, message } = req.body;
+    const formData = new FormData(form);
 
-  if (!name || !email) {
-    return res.status(400).json({ success: false, error: "Missing fields" });
-  }
+    try {
+      const res = await fetch("https://formspree.io/f/managdj", {
+        method: "POST",
+        body: formData
+      });
 
-  // This would normally forward email via Resend / SendGrid
-  console.log("New Contact:", { name, email, artist, message });
-
-  return res.status(200).json({
-    success: true,
-    received: true
+      if (res.ok) {
+        msg.textContent = "Message sent — we’ll be in touch.";
+        form.reset();
+      } else {
+        msg.textContent = "Something went wrong. Try again.";
+      }
+    } catch (err) {
+      msg.textContent = "Network error — try again.";
+    }
   });
 }
