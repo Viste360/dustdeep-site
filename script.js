@@ -1,5 +1,5 @@
 /* ==========================================================
-   DUSTDEEP — Automated SoundCloud Engine + Contact System
+   DUSTDEEP — Front-End Auto SoundCloud + Formspree Engine
 ========================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -14,13 +14,9 @@ document.addEventListener("DOMContentLoaded", () => {
 ---------------------------------------------------------- */
 function fadeSections() {
   const observer = new IntersectionObserver(
-    entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-        }
-      });
-    },
+    entries => entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add("visible");
+    }),
     { threshold: 0.15 }
   );
 
@@ -28,69 +24,42 @@ function fadeSections() {
 }
 
 /* ----------------------------------------------------------
-   SOUNDLOUD AUTO RELEASES (RSS → JSON → Grid)
+   SOUNDLOUD AUTO RELEASES (RSS2JSON DIRECT)
 ---------------------------------------------------------- */
 
 const ARTISTS = {
   nyral: "https://soundcloud.com/nyralmusic",
   akasyon: "https://soundcloud.com/akasyonmusic",
   globasso: "https://soundcloud.com/globasso_dustdeep",
-  kletron: "https://soundcloud.com/kletron"
+  kletron: "https://soundcloud.com/kletron",
+  dustdeep: "https://soundcloud.com/dustdeep"
 };
 
-async function loadReleases() {
-  try {
-    // Fetch all artist feeds in parallel
-    const entries = Object.entries(ARTISTS);
-    const feeds = await Promise.all(
-      entries.map(([key, url]) => fetchRSS(url))
-    );
-
-    const allTracks = [];
-
-    feeds.forEach((tracks, idx) => {
-      const key = entries[idx][0];
-      const containerId = `${key}Releases`;
-
-      populateGrid(containerId, tracks.slice(0, 4));
-      allTracks.push(...tracks);
-    });
-
-    // Global "New Releases" – newest first
-    allTracks.sort((a, b) => b.date - a.date);
-    populateGrid("newReleasesGrid", allTracks.slice(0, 12));
-  } catch (err) {
-    console.error("Error loading SoundCloud releases:", err);
-  }
-}
-
 async function fetchRSS(url) {
-  const rssURL = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(
-    url + "/tracks"
-  )}`;
+  const rssURL =
+    `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url + "/tracks")}`;
 
-  const res = await fetch(rssURL);
-  if (!res.ok) {
-    console.error("RSS request failed for", url);
+  try {
+    const data = await fetch(rssURL).then(r => r.json());
+    if (!data.items) return [];
+
+    return data.items.map(i => ({
+      title: i.title,
+      url: i.link,
+      artwork:
+        i.thumbnail?.replace("-t500x500", "-t300x300") ||
+        "/assets/default-art.jpg",
+      date: new Date(i.pubDate)
+    }));
+  } catch (e) {
+    console.error("RSS fetch error:", e);
     return [];
   }
-
-  const data = await res.json();
-  if (!data.items) return [];
-
-  return data.items.map(item => ({
-    title: item.title,
-    url: item.link,
-    artwork:
-      item.thumbnail?.replace("-t500x500", "-t300x300") ||
-      "assets/DustDeep.png",
-    date: new Date(item.pubDate)
-  }));
 }
 
 function populateGrid(id, tracks) {
   const el = document.getElementById(id);
-  if (!el || !tracks || !tracks.length) return;
+  if (!el) return;
 
   el.innerHTML = tracks
     .map(
@@ -99,25 +68,45 @@ function populateGrid(id, tracks) {
         <img src="${t.artwork}" alt="${t.title}">
         <div class="release-overlay">
           <h3>${t.title}</h3>
-          <a href="${t.url}" target="_blank" rel="noopener">Listen</a>
+          <a href="${t.url}" target="_blank">Listen</a>
         </div>
       </div>`
     )
     .join("");
 }
 
+async function loadReleases() {
+  const allTracks = [];
+
+  for (const key in ARTISTS) {
+    const feed = await fetchRSS(ARTISTS[key]);
+
+    if (["nyral", "akasyon", "globasso", "kletron"].includes(key)) {
+      populateGrid(`${key}Releases`, feed.slice(0, 4));
+    }
+
+    allTracks.push(...feed);
+  }
+
+  allTracks.sort((a, b) => b.date - a.date);
+
+  populateGrid("newReleasesGrid", allTracks.slice(0, 12));
+}
+
 /* ----------------------------------------------------------
-   CONTACT FORM — FORMSPREE ENDPOINT
+   CONTACT FORM — FORMSPREE
 ---------------------------------------------------------- */
 
 function setupContactForm() {
   const form = document.getElementById("contact-form");
   const msg = document.getElementById("form-msg");
+
   if (!form) return;
 
   form.addEventListener("submit", async e => {
     e.preventDefault();
-    if (msg) msg.textContent = "Sending...";
+
+    msg.textContent = "Sending...";
 
     const data = {
       name: form.name.value,
@@ -127,21 +116,20 @@ function setupContactForm() {
     };
 
     try {
-      const res = await fetch("https://formspree.io/f/managdyj", {
+      const res = await fetch("https://formspree.io/f/YOUR_ID_HERE", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data)
       });
 
       if (res.ok) {
-        if (msg) msg.textContent = "Message sent — we’ll be in touch.";
+        msg.textContent = "Message sent — we'll respond soon.";
         form.reset();
       } else {
-        if (msg) msg.textContent = "Something went wrong. Please try again.";
+        msg.textContent = "Something went wrong.";
       }
-    } catch (error) {
-      console.error("Form submit error:", error);
-      if (msg) msg.textContent = "Network error. Try again in a bit.";
+    } catch {
+      msg.textContent = "Network error — try again.";
     }
   });
 }
