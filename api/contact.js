@@ -8,11 +8,11 @@ function setupContactForm() {
 
     const formData = new FormData(form);
 
-    try {
-      const res = await fetch("https://formspree.io/f/managdj", {
-        method: "POST",
-        body: formData
-      });
+fetch("https://formspree.io/f/managdj", {
+  method: "POST",
+  body: formData
+})
+;
 
       if (res.ok) {
         msg.textContent = "Message sent — we’ll be in touch.";
