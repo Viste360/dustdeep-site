@@ -6,70 +6,49 @@
 
   <title>DustDeep — Curating Sonic Identities Across Continents</title>
 
-  <meta name="description"
-        content="DustDeep is a global music label and sonic identity collective shaping electronic, Afro-tech, melodic, and percussive sounds across London, Brooklyn & Berlin." />
-
-  <meta name="keywords"
-        content="DustDeep, Music Label, Sonic Identity, Electronic Music, Afro Tech, Global Bass, Deep House, Melodic Techno, Nyral, Akasyon, Globasso, Kletron" />
-
+  <!-- Meta -->
+  <meta name="description" content="DustDeep is a global music label and sonic-identity collective shaping electronic, Afro-tech, melodic and percussive sounds across London, Brooklyn & Berlin." />
+  <meta name="keywords" content="DustDeep, Music Label, Electronic Music, Afro Tech, Global Bass, Deep House, Melodic Techno, Nyral, Akasyon, Globasso, Kletron" />
   <meta name="author" content="DustDeep Ltd" />
   <meta name="robots" content="index, follow, max-image-preview:large" />
 
   <!-- Canonical -->
   <link rel="canonical" href="https://dustdeep.com/" />
 
-  <!-- Open Graph -->
+  <!-- OG -->
   <meta property="og:title" content="DustDeep — Curating Sonic Identities Across Continents" />
-  <meta property="og:description"
-        content="A global music collective crafting future-facing sounds by studying each artist’s sonic identity." />
+  <meta property="og:description" content="A global music collective crafting future-facing sounds by studying each artist’s sonic identity." />
   <meta property="og:image" content="https://dustdeep.com/assets/og-main.png" />
   <meta property="og:url" content="https://dustdeep.com" />
   <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="DustDeep" />
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="DustDeep — Curating Sonic Identities Across Continents" />
   <meta name="twitter:image" content="https://dustdeep.com/assets/og-main.png" />
-  <meta name="twitter:site" content="@dustdeepmusic" />
-<meta name="theme-color" content="#000000" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="mobile-web-app-capable" content="yes" />
-<meta name="format-detection" content="telephone=no" />
 
-<!-- Google Discover Enhancement -->
-<meta name="google" content="nositelinkssearchbox" />
-<meta name="google" content="nopagereadaloud" />
-<meta name="googlebot" content="max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
-<meta name="bingbot" content="max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <!-- Performance -->
+  <link rel="preload" href="/style.css" as="style" />
+  <link rel="preload" href="/script.js" as="script" />
+  <link rel="stylesheet" href="style.css" />
 
   <!-- Icons -->
   <link rel="icon" href="assets/favicon.png" />
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
 
-  <!-- PWA -->
+  <!-- Manifest -->
   <link rel="manifest" href="/manifest.json" />
 
-  <!-- Preload Performance -->
-  <link rel="preload" href="/style.css" as="style" />
-  <link rel="preload" href="/script.js" as="script" />
-
-  <link rel="stylesheet" href="style.css" />
-
-  <!-- =============================================================
-       JSON-LD STRUCTURED DATA (GOOGLE KNOWLEDGE GRAPH)
-       ============================================================= -->
+  <!-- Structured Data -->
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "DustDeep",
-    "legalName": "DustDeep Ltd",
-    "url": "https://dustdeep.com",
-    "logo": "https://dustdeep.com/assets/DustDeepIcon.png",
-    "description": "Global electronic music label and sonic identity collective.",
-    "foundingLocation": "London, UK",
-    "sameAs": [
+    "@context":"https://schema.org",
+    "@type":"Organization",
+    "name":"DustDeep",
+    "url":"https://dustdeep.com",
+    "logo":"https://dustdeep.com/assets/DustDeepIcon.png",
+    "description":"Global electronic music label and sonic identity collective.",
+    "sameAs":[
       "https://soundcloud.com/dustdeep",
       "https://www.tiktok.com/@dustdeepmusic",
       "mailto:info@dustdeep.com"
@@ -77,56 +56,27 @@
   }
   </script>
 
-  <!-- Website Schema -->
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "DustDeep",
-    "url": "https://dustdeep.com",
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "https://dustdeep.com/?q={search_term_string}",
-      "query-input": "required name=search_term_string"
-    }
-  }
-  </script>
-
-  <!-- Label / MusicGroup Schema -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "MusicGroup",
-    "name": "DustDeep",
-    "genre": ["Electronic", "Afro Tech", "Deep House", "Global Bass"],
-    "track": [],
-    "url": "https://dustdeep.com",
-    "memberOf": "DustDeep Collective",
-    "foundingLocation": "Brooklyn, NY / London",
-    "member": [
-      { "@type": "Person", "name": "Nyral" },
-      { "@type": "Person", "name": "Akasyon" },
-      { "@type": "Person", "name": "Globasso" },
-      { "@type": "Person", "name": "Kletron" }
-    ]
-  }
-  </script>
-
-  <!-- Breadcrumbs (boosts sitelinks) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://dustdeep.com" },
-      { "@type": "ListItem", "position": 2, "name": "Artists", "item": "https://dustdeep.com/#artists" },
-      { "@type": "ListItem", "position": 3, "name": "Releases", "item": "https://dustdeep.com/#new-releases" }
+    "@context":"https://schema.org",
+    "@type":"MusicGroup",
+    "name":"DustDeep",
+    "genre":["Electronic","Afro Tech","Deep House","Global Bass"],
+    "url":"https://dustdeep.com",
+    "member":[
+      {"@type":"Person","name":"Nyral"},
+      {"@type":"Person","name":"Akasyon"},
+      {"@type":"Person","name":"Globasso"},
+      {"@type":"Person","name":"Kletron"}
     ]
   }
   </script>
 
 </head>
+
 <body>
+
+<!-- HEADER -->
 <header>
   <a href="#top" class="logo">
     <img src="assets/DustDeepIcon.png" alt="DustDeep Logo">
@@ -140,6 +90,7 @@
   </nav>
 </header>
 
+<!-- HERO -->
 <section class="hero" id="top">
   <img src="assets/DustDeep.png" alt="DustDeep Logo" class="hero-logo">
 
@@ -156,8 +107,10 @@
   </div>
 </section>
 
+<!-- ABOUT -->
 <section class="section" id="about">
   <h2>About DustDeep</h2>
+
   <p class="about-short">
     DustDeep is a cross-continental electronic music label shaping future-facing
     sound identities. We blend cultural rhythm, sonic research, and modern club
@@ -176,75 +129,86 @@
   </details>
 </section>
 
+<!-- ARTISTS -->
 <section class="section" id="artists">
   <h2>Artists</h2>
 
   <div class="artist-grid">
 
+    <!-- NYRAL -->
     <div class="artist-card">
       <img src="assets/nyral.jpg" alt="Nyral">
       <h3>Nyral</h3>
       <p class="tag">Melodic Tech · Afro Tech</p>
-      <p class="desc"> Nyral blends melodic tech, Afro-tech percussion and emotional electronic storytelling. His sound is 
-defined by deep harmonics, rhythmic pulsework and evolving atmospheric layers inspired by global 
-rhythmic traditions. His productions create immersive dance-floor journeys with a strong narrative 
-core and a modern melodic signature.
-</p>
+      <p class="desc">
+        Nyral blends melodic tech, Afro-tech percussion and emotional electronic storytelling...
+      </p>
       <iframe width="100%" height="120" frameborder="no"
         src="https://w.soundcloud.com/player/?url=https://soundcloud.com/nyralmusic&auto_play=false"></iframe>
     </div>
 
+    <!-- AKASYON -->
     <div class="artist-card">
       <img src="assets/akasyon.jpg" alt="Akasyon">
       <h3>Akasyon</h3>
       <p class="tag">Melodic Tech Remixes</p>
-      <p class="desc"> Akasyon is a Germany- and US-based producer duo known for warm melodic tech, intricate remix 
-architectures and uplifting electronic textures. Their sound merges crisp rhythmic detailing with 
-emotive melodic phrasing, balancing dance-floor energy with cinematic depth. Akasyon's work 
-bridges European electronic aesthetics with transatlantic groove traditions.
-</p>
+      <p class="desc">
+        Akasyon is a Germany- and US-based producer duo known for warm melodic tech...
+      </p>
       <iframe width="100%" height="120" frameborder="no"
         src="https://w.soundcloud.com/player/?url=https://soundcloud.com/akasyonmusic&auto_play=false"></iframe>
     </div>
 
+    <!-- GLOBASSO -->
     <div class="artist-card">
       <img src="assets/globasso.jpg" alt="Globasso">
       <h3>Globasso</h3>
       <p class="tag">Global Bass</p>
-      <p class="desc"> Globasso is a Brooklyn-rooted global bass and percussion-driven producer integrating Afro-diasporic 
-rhythms, percussive club elements and experimental bass textures. His sound reflects multicultural 
-New York energy—raw, rhythmic and future-minded. Globasso builds energetic, tactile grooves built 
-for movement and impact.
-</p>
+      <p class="desc">
+        Globasso is a Brooklyn-rooted global bass and percussion-driven producer integrating...
+      </p>
       <iframe width="100%" height="120" frameborder="no"
         src="https://w.soundcloud.com/player/?url=https://soundcloud.com/globasso_dustdeep&auto_play=false"></iframe>
     </div>
 
+    <!-- KLETRON -->
     <div class="artist-card">
       <img src="assets/tommyk.jpg" alt="Kletron">
       <h3>Kletron</h3>
       <p class="tag">Deep House</p>
-      <p class="desc"> Kletron crafts deep house with analog-warm textures, hypnotic basslines and subtle melodic movement. 
-His productions lean into minimal groove, late-night atmospheres and timeless dance-floor flow. 
-Kletron’s sound pays homage to classic deep house while pushing it into a refined, modern direction.
-</p>
+      <p class="desc">
+        Kletron crafts deep house with analog-warm textures and hypnotic basslines...
+      </p>
       <iframe width="100%" height="120" frameborder="no"
         src="https://w.soundcloud.com/player/?url=https://soundcloud.com/kletron&auto_play=false"></iframe>
     </div>
+
+  </div>
 </section>
 
+<!-- LISTEN -->
+<section class="section" id="listen">
+  <h2>Listen</h2>
+
+  <iframe width="100%" height="166" scrolling="no" frameborder="no"
+    src="https://w.soundcloud.com/player/?url=https://soundcloud.com/dustdeep/sets/shadows-we-carry&color=%23ff5500&inverse=false"></iframe>
+</section>
+
+<!-- WATCH -->
 <section class="section" id="watch">
   <h2>Watch</h2>
 
   <blockquote class="tiktok-embed"
       cite="https://www.tiktok.com/@dustdeepmusic"
       data-unique-id="dustdeepmusic"
-      style="max-width: 600px; margin: auto;">
+      style="max-width:600px; margin:auto;">
       <section>Loading TikTok…</section>
   </blockquote>
+
   <script async src="https://www.tiktok.com/embed.js"></script>
 </section>
 
+<!-- CONTACT -->
 <section class="section join" id="contact">
   <h2>Join the Collective</h2>
 
@@ -258,6 +222,7 @@ Kletron’s sound pays homage to classic deep house while pushing it into a refi
   </form>
 </section>
 
+<!-- FOOTER -->
 <footer>
   <div class="socials">
     <a href="https://soundcloud.com/dustdeep" target="_blank">SoundCloud</a> ·
