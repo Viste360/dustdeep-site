@@ -33,40 +33,32 @@ function fadeSections() {
    CONTACT FORM → GOOGLE SHEETS API
 ---------------------------------------------------------- */
 
-const GOOGLE_SHEETS_URL =
-  "https://script.google.com/macros/s/AKfycbw3wCAsTeSS7cM5Plxd8ufjzpdrkdRzNR4RJUP3fpKfB6uf1IYv9hL3ZEC987KLgOKoyw/exec";
+// FORM → GOOGLE SHEETS
+document.getElementById("contact-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
 
-function setupContactForm() {
-  const form = document.getElementById("contact-form");
   const msg = document.getElementById("form-msg");
+  msg.textContent = "Sending…";
 
-  if (!form) return;
+  const formData = new FormData(e.target);
 
-  form.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    msg.textContent = "Sending…";
-    msg.style.color = "#ffb347";
+  try {
+    const res = await fetch(
+      "https://script.google.com/macros/s/AKfycbw3wCAsTeSS7cM5Plxd8ufjzpdrkdRzNR4RJUP3fpKfB6uf1IYv9hL3ZEC987KLgOKoyw/exec",
+      { method: "POST", body: formData }
+    );
 
-    const formData = new FormData(form);
-
-    try {
-      const res = await fetch(GOOGLE_SHEETS_URL, {
-        method: "POST",
-        mode: "no-cors",
-        body: formData
-      });
-
-      msg.textContent = "Message received — we'll be in touch.";
-      msg.style.color = "#ffb347";
-      form.reset();
-
-    } catch (error) {
-      msg.textContent = "Something went wrong — try again later.";
-      msg.style.color = "#ff7050";
-      console.error("Form error:", error);
+    const text = await res.text();
+    if (text.includes("Success")) {
+      msg.textContent = "Message sent — we’ll be in touch soon!";
+      e.target.reset();
+    } else {
+      msg.textContent = "Error — try again.";
     }
-  });
-}
+  } catch (err) {
+    msg.textContent = "Network error — try again.";
+  }
+});
 
 /* ----------------------------------------------------------
    TIKTOK PROFILE FEED (AUTO-EMBED)
