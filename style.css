@@ -116,6 +116,30 @@ header nav a:hover {
   margin: 1.5rem auto 2rem;
   opacity: 0.9;
 }
+.about-expand {
+  margin: 40px auto;
+  max-width: 800px;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: #ddd;
+}
+
+.about-expand summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: #ff914d;
+  margin-bottom: 10px;
+  font-size: 1.15rem;
+}
+
+.about-expand[open] summary {
+  margin-bottom: 20px;
+}
+
+.about-expand p {
+  margin-bottom: 18px;
+  color: #ccc;
+}
 
 /* CTA BUTTONS */
 .cta {
