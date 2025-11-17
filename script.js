@@ -116,7 +116,7 @@ function setupContactForm() {
     };
 
     try {
-      const res = await fetch("https://formspree.io/f/Ymanagdyj", {
+      const res = await fetch("https://formspree.io/f/managdyj", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data)
