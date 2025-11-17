@@ -1,70 +1,66 @@
+/* ==========================================================
+   DUSTDEEP OFFICIAL — NEON BLACK LABEL THEME
+   Responsive · Stable · No spacing bugs · High-end aesthetic
+========================================================== */
+
 :root {
   --bg: #0b0b0b;
   --bg2: #141414;
   --text: #eaeaea;
+  --soft: #cfcfcf;
   --accent1: #ffb347;
   --accent2: #ff7050;
   --max-width: 1200px;
   --transition: 0.3s ease;
 }
 
+/* GLOBAL RESET */
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body {
   font-family: "Inter", sans-serif;
   background: var(--bg);
   color: var(--text);
-  overflow-x: hidden;
   line-height: 1.6;
+  overflow-x: hidden;
 }
 
-/* ✦ Smooth fade animation via JS-added .visible */
-.section {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+/* SMOOTH ANIMATIONS */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.section.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ✦ Floating logo */
 @keyframes logoFloat {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-8px);
-  }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
 }
 
-/* HEADER */
+/* ==========================================================
+   HEADER / NAV
+========================================================== */
 header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  background: rgba(0, 0, 0, 0.8);
+  padding: 1rem 2rem;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(10px);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
+  border-bottom: 1px solid #1a1a1a;
   z-index: 1000;
-  backdrop-filter: blur(10px);
 }
 
 header .logo img {
   height: 34px;
-  width: auto;
-  transition: transform 0.3s ease;
-  filter: drop-shadow(0 0 4px rgba(255, 150, 80, 0.6));
+  transition: var(--transition);
 }
 
 header .logo img:hover {
@@ -73,363 +69,238 @@ header .logo img:hover {
 
 header nav a {
   color: #fff;
-  text-decoration: none;
   margin: 0 1rem;
+  text-decoration: none;
   font-weight: 500;
-  font-size: 0.95rem;
-  transition: color 0.3s ease;
+  transition: var(--transition);
 }
 
 header nav a:hover {
   color: var(--accent1);
 }
 
-/* HERO */
+/* ==========================================================
+   HERO
+========================================================== */
 .hero {
-  text-align: center;
   padding: 10rem 1rem 5rem;
+  text-align: center;
   max-width: var(--max-width);
   margin: auto;
-}
-
-.hero h1 {
-  font-family: "Space Grotesk", sans-serif;
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
-}
-
-.hero p {
-  max-width: 700px;
-  margin: 0 auto 1rem;
-  opacity: 0.9;
+  animation: fadeInUp 1s ease;
 }
 
 .hero-logo {
   width: 220px;
-  max-width: 70vw;
-  margin-bottom: 1.5rem;
-  filter: drop-shadow(0 0 15px rgba(255, 179, 71, 0.5));
+  max-width: 75vw;
+  margin-bottom: 2rem;
+  filter: drop-shadow(0 0 15px rgba(255,179,71,0.4));
   animation: logoFloat 6s ease-in-out infinite;
 }
 
+.hero h1 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 2.1rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.subtitle {
+  opacity: 0.9;
+  margin-bottom: 1rem;
+}
+
 .mission {
-  margin: 20px auto;
+  font-size: 1.15rem;
   max-width: 650px;
-  text-align: center;
-  font-size: 1.1rem;
-  opacity: 0.85;
+  margin: 1.5rem auto 2rem;
+  opacity: 0.9;
 }
 
+/* CTA BUTTONS */
 .cta {
-  margin: 25px auto 40px;
-  text-align: center;
+  margin-bottom: 30px;
 }
 
-.cta a {
-  padding: 12px 28px;
-  border: 1px solid #fff;
+.btn,
+.btn-outline {
+  padding: 0.85rem 1.8rem;
   border-radius: 40px;
   text-decoration: none;
-  font-size: 1rem;
-  transition: 0.25s ease;
-}
-
-.cta a:hover {
-  background: #fff;
-  color: #000;
-}
-
-/* ✦ Buttons */
-.btn,
-.btn-outline,
-.btn-small {
-  display: inline-block;
-  padding: 0.8rem 1.6rem;
-  border-radius: 3px;
-  text-decoration: none;
-  font-size: 0.9rem;
-  transition: var(--transition);
   font-weight: 500;
+  transition: var(--transition);
+  display: inline-block;
+  font-size: 0.95rem;
 }
 
 .btn {
   background: linear-gradient(90deg, var(--accent1), var(--accent2));
   color: #000;
 }
+
 .btn:hover {
-  filter: brightness(1.2);
-  box-shadow: 0 0 15px rgba(255, 179, 71, 0.3);
+  filter: brightness(1.15);
+  box-shadow: 0 0 18px rgba(255,150,80,0.4);
 }
+
 .btn-outline {
   border: 1px solid var(--accent1);
-  color: var(--text);
+  color: var(--accent1);
 }
+
 .btn-outline:hover {
   background: var(--accent1);
   color: #000;
 }
-.btn-small {
-  background: none;
-  border: 1px solid var(--accent1);
-  color: var(--accent1);
-  padding: 0.5rem 1.2rem;
-}
-.btn-small:hover {
-  background: linear-gradient(90deg, var(--accent1), var(--accent2));
-  color: #000;
-}
 
-/* ✦ Generic sections */
+/* ==========================================================
+   SECTIONS — UNIVERSAL
+========================================================== */
 .section {
-  padding: 5rem 1.5rem;
-  text-align: center;
+  padding: 6rem 1.5rem;
   max-width: var(--max-width);
   margin: auto;
+  text-align: center;
+  animation: fadeInUp 1s ease;
 }
 
 .section h2 {
   font-family: "Space Grotesk", sans-serif;
-  font-size: 1.6rem;
-  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  margin-bottom: 2rem;
   background: linear-gradient(90deg, var(--accent1), var(--accent2));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* ✦ Artist Grid */
+/* ==========================================================
+   ARTIST GRID
+========================================================== */
 .artist-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.8rem;
-  justify-items: center;
-  align-items: start;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
   margin-top: 2rem;
 }
 
-/* ✦ Artist Card */
 .artist-card {
   background: var(--bg2);
-  border: 1px solid #222;
   padding: 1.5rem;
-  width: 100%;
-  max-width: 280px;
   border-radius: 14px;
+  border: 1px solid #222;
   transition: var(--transition);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  min-height: 500px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  min-height: 520px;
 }
 
 .artist-card img {
   width: 100%;
   height: 220px;
   object-fit: cover;
-  border-radius: 10px;
+  border-radius: 12px;
   margin-bottom: 1rem;
-  transition: 0.3s ease;
+  transition: var(--transition);
 }
 
 .artist-card:hover img {
-  filter: brightness(1.1);
-  transform: scale(1.02);
+  transform: scale(1.03);
+  filter: brightness(1.15);
 }
 
 .artist-card:hover {
   border-color: var(--accent1);
-  box-shadow: 0 0 20px rgba(255, 179, 71, 0.25);
+  box-shadow: 0 0 25px rgba(255,150,80,0.2);
   transform: translateY(-5px);
 }
 
 .artist-card h3 {
-  margin-bottom: 0.3rem;
   font-family: "Space Grotesk", sans-serif;
-  text-align: center;
-  color: var(--text);
-  font-weight: 600;
+  font-size: 1.3rem;
+  margin-bottom: 0.4rem;
 }
 
-.artist-card .tag {
-  font-size: 0.8rem;
+.tag {
   color: var(--accent1);
-  margin-bottom: 0.8rem;
-  text-align: center;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.8rem;
+  font-size: 0.8rem;
 }
 
-.artist-card .desc {
+.desc {
   font-size: 0.9rem;
-  color: #ccc;
-  text-align: center;
-  line-height: 1.4;
+  opacity: 0.8;
   margin-bottom: 1rem;
   flex-grow: 1;
 }
 
-/* ✦ SoundCloud Player Alignment */
-.player-wrapper {
-  width: 100%;
-  margin-top: 1rem;
-}
-
 .player-wrapper iframe {
-  border-radius: 6px;
-  box-shadow: 0 0 12px rgba(255, 165, 0, 0.1);
-  transition: box-shadow 0.3s ease;
+  border-radius: 8px;
+  box-shadow: 0 0 12px rgba(255,150,80,0.2);
 }
 
-.player-wrapper iframe:hover {
-  box-shadow: 0 0 20px rgba(255, 165, 0, 0.25);
-}
-
-/* ✦ Join Section */
-.join {
-  background: linear-gradient(180deg, rgba(255, 179, 71, 0.05), rgba(0, 0, 0, 0.2));
-  border-top: 1px solid #222;
-  border-bottom: 1px solid #222;
-}
-
-/* ✦ TikTok / Video */
-.tiktok-embed {
-  display: flex;
-  justify-content: center;
-  margin-top: 2rem;
-  border-radius: 10px;
-  overflow: hidden;
-  background: #111;
-}
-
-/* ✦ Form */
-form {
-  display: flex;
-  flex-direction: column;
-  max-width: 500px;
-  margin: 0 auto;
-}
-form input,
-form textarea {
-  background: #141414;
-  border: 1px solid #222;
-  color: var(--text);
-  margin-bottom: 0.8rem;
-  padding: 0.8rem;
-  border-radius: 4px;
-}
-form input::placeholder,
-form textarea::placeholder {
-  color: #888;
-}
-form button {
-  cursor: pointer;
-}
-.form-msg {
-  margin-top: 0.8rem;
-  color: var(--accent1);
-}
-
-/* ============================================================
-   PREMIUM RELEASES — DustDeep Label
-============================================================ */
-
-.premium-releases,
-.dynamic-artist-releases {
-  margin: 90px auto;
-  max-width: 1200px;
-  padding: 0 30px;
-}
-
-.premium-releases h2,
-.dynamic-artist-releases h2 {
-  font-family: "Space Grotesk", sans-serif;
-  font-size: 2.2rem;
-  text-align: center;
-  margin-bottom: 40px;
-  letter-spacing: 0.5px;
-  font-weight: 600;
-  background: linear-gradient(90deg, var(--accent1), var(--accent2));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* GRID LAYOUT */
+/* ==========================================================
+   RELEASE GALLERIES
+========================================================== */
 .release-gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 40px;
-  margin-bottom: 80px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 28px;
+  margin-top: 2rem;
 }
 
-.release-gallery.small {
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-}
-
-/* RELEASE CARD */
 .release-card {
   position: relative;
   border-radius: 14px;
   overflow: hidden;
-  cursor: pointer;
-  transform: translateZ(0);
-  transition: transform 0.3s ease;
   background: #000;
+  cursor: pointer;
+  transition: var(--transition);
 }
 
 .release-card img {
   width: 100%;
+  height: auto;
   aspect-ratio: 1 / 1;
   object-fit: cover;
-  border-radius: 14px;
-  transition: transform 0.45s ease, opacity 0.45s ease;
-  backface-visibility: hidden;
+  transition: 0.4s ease;
 }
 
-/* Hover effect */
 .release-card:hover img {
-  transform: scale(1.06);
+  transform: scale(1.05);
   opacity: 0.55;
 }
 
-/* Overlays */
 .release-overlay {
   position: absolute;
   inset: 0;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   opacity: 0;
-  transition: opacity 0.35s ease-in-out;
-  backdrop-filter: blur(0);
+  transition: 0.35s ease;
 }
 
 .release-card:hover .release-overlay {
   opacity: 1;
-  backdrop-filter: blur(3px);
+  backdrop-filter: blur(4px);
 }
 
 .release-overlay h3 {
-  color: #fff;
-  font-size: 1.2rem;
+  font-size: 1rem;
   text-align: center;
   margin-bottom: 12px;
-  padding: 0 10px;
-  line-height: 1.3;
-  font-weight: 500;
 }
 
-/* Overlay button */
 .release-overlay a {
   padding: 10px 26px;
   border-radius: 40px;
   border: 1px solid white;
-  background: transparent;
-  color: white;
   text-decoration: none;
-  transition: 0.25s ease-in-out;
-  font-size: 0.95rem;
-  letter-spacing: 0.3px;
+  color: #fff;
+  transition: var(--transition);
 }
 
 .release-overlay a:hover {
@@ -437,33 +308,73 @@ form button {
   color: #000;
 }
 
-/* ✦ Footer */
-footer {
-  text-align: center;
-  padding: 2rem 1rem;
-  border-top: 1px solid #222;
-  font-size: 0.9rem;
-  opacity: 0.9;
+/* ==========================================================
+   CONTACT FORM
+========================================================== */
+form {
+  max-width: 500px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
 }
+
+form input,
+form textarea {
+  background: #141414;
+  border: 1px solid #222;
+  color: var(--text);
+  padding: 0.9rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+form input::placeholder,
+form textarea::placeholder {
+  color: #777;
+}
+
+.btn {
+  cursor: pointer;
+}
+
+#form-msg {
+  margin-top: 1rem;
+  color: var(--accent1);
+  font-size: 0.9rem;
+}
+
+/* ==========================================================
+   FOOTER
+========================================================== */
+footer {
+  padding: 2.5rem 1rem;
+  border-top: 1px solid #222;
+  text-align: center;
+  opacity: 0.85;
+}
+
 .socials a {
   color: var(--accent1);
-  margin: 0 0.3rem;
   text-decoration: none;
+  margin: 0 0.4rem;
   transition: var(--transition);
 }
+
 .socials a:hover {
   color: var(--accent2);
 }
 
-/* ✦ Responsive */
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
 @media (max-width: 768px) {
   header {
-    padding: 0.8rem 1.2rem;
+    padding: 1rem 1.2rem;
   }
 
   header nav a {
     margin: 0 0.6rem;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
   }
 
   .hero {
@@ -471,59 +382,24 @@ footer {
   }
 
   .hero h1 {
-    font-size: 1.6rem;
+    font-size: 1.7rem;
   }
 
   .section {
-    padding: 4rem 1rem;
-  }
-
-  .artist-card {
-    max-width: 90%;
-    min-height: auto;
-  }
-
-  .artist-card img {
-    height: 200px;
-  }
-
-  .premium-releases,
-  .dynamic-artist-releases {
-    padding: 0 18px;
-  }
-
-  .premium-releases h2,
-  .dynamic-artist-releases h2 {
-    font-size: 1.8rem;
-    margin-bottom: 30px;
+    padding: 5rem 1rem;
   }
 
   .release-gallery {
-    gap: 30px;
-  }
-
-  .release-card {
-    border-radius: 12px;
-  }
-
-  .release-overlay h3 {
-    font-size: 1rem;
+    gap: 22px;
   }
 }
 
 @media (max-width: 480px) {
-  .premium-releases,
-  .dynamic-artist-releases {
-    padding: 0 14px;
-  }
-
   .release-gallery {
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  .release-overlay a {
-    padding: 8px 18px;
-    font-size: 0.8rem;
+  .artist-grid {
+    grid-template-columns: 1fr;
   }
 }
