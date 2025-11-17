@@ -4,37 +4,47 @@
 ========================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
+  document.body.classList.add("loaded");
+  setupContactForm();
+});
+
+/* CONTACT FORM → GOOGLE SHEETS API */
+function setupContactForm() {
   const form = document.getElementById("contact-form");
   const msg = document.getElementById("form-msg");
+
+  if (!form) return;
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     msg.textContent = "Sending...";
 
-    const payload = {
+    const data = {
       name: form.name.value,
       email: form.email.value,
       artist: form.artist.value,
-      message: form.message.value,
+      message: form.message.value
     };
 
     try {
-      await fetch("https://script.google.com/macros/s/AKfycbw3wCAsTeSS7cM5Plxd8ufjzpdrkdRzNR4RJUP3fpKfB6uf1IYv9hL3ZEC987KLgOKoyw/exec", {
-        method: "POST",
-        mode: "no-cors",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
+      const res = await fetch(
+        "https://script.google.com/macros/s/AKfycbw3wCAsTeSS7cM5Plxd8ufjzpdrkdRzNR4RJUP3fpKfB6uf1IYv9hL3ZEC987KLgOKoyw/exec",
+        {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
+        }
+      );
 
-      msg.textContent = "Message sent — we’ll be in touch.";
+      msg.textContent = "Message sent — thank you!";
       form.reset();
-    } catch {
+    } catch (err) {
       msg.textContent = "Network error — try again.";
     }
   });
-});
-
 }
+
 
 /* ----------------------------------------------------------
    CONTACT FORM → GOOGLE SHEETS API
