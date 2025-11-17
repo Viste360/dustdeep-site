@@ -95,22 +95,31 @@ async function fetchRSS(url) {
 /* ----------------------------------------------------------
    GRID POPULATION (Reusable)
 ---------------------------------------------------------- */
-function populateGrid(el, tracks) {
+function populateGrid(el, tracks, artistName, profileURL) {
+  if (!tracks || tracks.length === 0) {
+    el.innerHTML = `
+      <div class="release-card empty">
+        <p>No releases yet.</p>
+        <a href="${profileURL}" target="_blank">Visit SoundCloud</a>
+      </div>
+    `;
+    return;
+  }
+
   el.innerHTML = tracks
     .map(
       (t) => `
-    <div class="release-card">
-      <img src="${t.artwork}" alt="${t.title}">
-      <div class="release-overlay">
-        <h3>${t.title}</h3>
-        <a href="${t.url}" target="_blank">Listen</a>
+      <div class="release-card">
+        <img src="${t.artwork}" alt="${t.title}">
+        <div class="release-overlay">
+          <h3>${t.title}</h3>
+          <a href="${t.url}" target="_blank">Listen</a>
+        </div>
       </div>
-    </div>
-  `
+    `
     )
     .join("");
 }
-
 /* ----------------------------------------------------------
    CONTACT FORM — FORMSPREE VERSION
 ---------------------------------------------------------- */
