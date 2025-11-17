@@ -2,35 +2,131 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <title>DustDeep | Curating Sonic Identities Across Continents</title>
+  <title>DustDeep — Curating Sonic Identities Across Continents</title>
 
-  <meta name="description" content="DustDeep is a global music label and sonic research collective shaping artists’ identities across London, Brooklyn, and beyond." />
-  <meta name="keywords" content="DustDeep, Nyral, Akasyon, Globasso, Kletron, Melodic Tech, Afro Tech, Deep House, Global Bass, Music Label" />
+  <meta name="description"
+        content="DustDeep is a global music label and sonic identity collective shaping electronic, Afro-tech, melodic, and percussive sounds across London, Brooklyn & Berlin." />
+
+  <meta name="keywords"
+        content="DustDeep, Music Label, Sonic Identity, Electronic Music, Afro Tech, Global Bass, Deep House, Melodic Techno, Nyral, Akasyon, Globasso, Kletron" />
+
   <meta name="author" content="DustDeep Ltd" />
-  <meta name="robots" content="index, follow">
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://dustdeep.com/" />
 
   <!-- Open Graph -->
-  <meta property="og:title" content="DustDeep | Curating Sonic Identities Across Continents">
-  <meta property="og:description" content="A global music collective bridging cultures through sound.">
-  <meta property="og:image" content="assets/DustDeep.png">
-  <meta property="og:url" content="https://dustdeep.com">
+  <meta property="og:title" content="DustDeep — Curating Sonic Identities Across Continents" />
+  <meta property="og:description"
+        content="A global music collective crafting future-facing sounds by studying each artist’s sonic identity." />
+  <meta property="og:image" content="https://dustdeep.com/assets/og-main.png" />
+  <meta property="og:url" content="https://dustdeep.com" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="DustDeep" />
 
   <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="assets/DustDeep.png">
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="DustDeep — Curating Sonic Identities Across Continents" />
+  <meta name="twitter:image" content="https://dustdeep.com/assets/og-main.png" />
+  <meta name="twitter:site" content="@dustdeepmusic" />
+<meta name="theme-color" content="#000000" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="format-detection" content="telephone=no" />
+
+<!-- Google Discover Enhancement -->
+<meta name="google" content="nositelinkssearchbox" />
+<meta name="google" content="nopagereadaloud" />
+<meta name="googlebot" content="max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+<meta name="bingbot" content="max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
 
   <!-- Icons -->
-  <link rel="icon" href="assets/favicon.png">
-  <link rel="apple-touch-icon" href="assets/favicon.png">
-  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="assets/favicon.png" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
 
-  <link rel="stylesheet" href="style.css">
+  <!-- PWA -->
+  <link rel="manifest" href="/manifest.json" />
+
+  <!-- Preload Performance -->
+  <link rel="preload" href="/style.css" as="style" />
+  <link rel="preload" href="/script.js" as="script" />
+
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- =============================================================
+       JSON-LD STRUCTURED DATA (GOOGLE KNOWLEDGE GRAPH)
+       ============================================================= -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "DustDeep",
+    "legalName": "DustDeep Ltd",
+    "url": "https://dustdeep.com",
+    "logo": "https://dustdeep.com/assets/DustDeepIcon.png",
+    "description": "Global electronic music label and sonic identity collective.",
+    "foundingLocation": "London, UK",
+    "sameAs": [
+      "https://soundcloud.com/dustdeep",
+      "https://www.tiktok.com/@dustdeepmusic",
+      "mailto:info@dustdeep.com"
+    ]
+  }
+  </script>
+
+  <!-- Website Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "DustDeep",
+    "url": "https://dustdeep.com",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://dustdeep.com/?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+
+  <!-- Label / MusicGroup Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MusicGroup",
+    "name": "DustDeep",
+    "genre": ["Electronic", "Afro Tech", "Deep House", "Global Bass"],
+    "track": [],
+    "url": "https://dustdeep.com",
+    "memberOf": "DustDeep Collective",
+    "foundingLocation": "Brooklyn, NY / London",
+    "member": [
+      { "@type": "Person", "name": "Nyral" },
+      { "@type": "Person", "name": "Akasyon" },
+      { "@type": "Person", "name": "Globasso" },
+      { "@type": "Person", "name": "Kletron" }
+    ]
+  }
+  </script>
+
+  <!-- Breadcrumbs (boosts sitelinks) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://dustdeep.com" },
+      { "@type": "ListItem", "position": 2, "name": "Artists", "item": "https://dustdeep.com/#artists" },
+      { "@type": "ListItem", "position": 3, "name": "Releases", "item": "https://dustdeep.com/#new-releases" }
+    ]
+  }
+  </script>
+
 </head>
-
 <body>
-
 <header>
   <a href="#top" class="logo">
     <img src="assets/DustDeepIcon.png" alt="DustDeep Logo">
