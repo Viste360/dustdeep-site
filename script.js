@@ -1,11 +1,11 @@
 /* ==========================================================
-   DUSTDEEP V4 — Automated SoundCloud Engine + Contact System
-   ========================================================== */
+   DUSTDEEP — Automated SoundCloud Engine + Contact System
+========================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
   document.body.classList.add("loaded");
   fadeSections();
-  loadAllReleases();
+  loadReleases();
   setupContactForm();
 });
 
@@ -14,11 +14,9 @@ document.addEventListener("DOMContentLoaded", () => {
 ---------------------------------------------------------- */
 function fadeSections() {
   const observer = new IntersectionObserver(
-    entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add("visible");
-      });
-    },
+    entries => entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add("visible");
+    }),
     { threshold: 0.15 }
   );
 
@@ -26,64 +24,83 @@ function fadeSections() {
 }
 
 /* ----------------------------------------------------------
-   FETCH ALL RELEASES FROM VERCEL SERVERLESS FUNCTION
+   SOUNDLOUD AUTO RELEASES (RSS → JSON → Grid)
 ---------------------------------------------------------- */
-async function loadAllReleases() {
-  try {
-    const res = await fetch("/api/soundcloud");
-    const data = await res.json();
 
-    if (!data || !data.success) return console.error("SC error:", data);
+const ARTISTS = {
+  nyral: "https://soundcloud.com/nyralmusic",
+  akasyon: "https://soundcloud.com/akasyonmusic",
+  globasso: "https://soundcloud.com/globasso_dustdeep",
+  kletron: "https://soundcloud.com/kletron"
+};
 
-    // Global releases
-    populateReleases("newReleasesGrid", data.all);
-
-    // Per artist
-    populateReleases("nyralReleases", data.nyral);
-    populateReleases("akasyonReleases", data.akasyon);
-    populateReleases("globassoReleases", data.globasso);
-    populateReleases("kletronReleases", data.kletron);
-
-  } catch (err) {
-    console.error("Failed to load releases:", err);
+async function loadReleases() {
+  for (const key in ARTISTS) {
+    const feed = await fetchRSS(ARTISTS[key]);
+    populateGrid(`${key}Releases`, feed.slice(0, 4));
   }
+
+  // Merge all for "New Releases"
+  const all = [];
+
+  for (const key in ARTISTS) {
+    const feed = await fetchRSS(ARTISTS[key]);
+    all.push(...feed);
+  }
+
+  // Sort newest first
+  all.sort((a, b) => b.date - a.date);
+
+  populateGrid("newReleasesGrid", all.slice(0, 12));
 }
 
-/* ----------------------------------------------------------
-   POPULATE A RELEASE GRID
----------------------------------------------------------- */
-function populateReleases(containerId, tracks) {
-  const container = document.getElementById(containerId);
-  if (!container || !tracks || !tracks.length) return;
+async function fetchRSS(url) {
+  const rssURL =
+    `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url + "/tracks")}`;
 
-  container.innerHTML = tracks
+  const data = await fetch(rssURL).then(r => r.json());
+  if (!data.items) return [];
+
+  return data.items.map(i => ({
+    title: i.title,
+    url: i.link,
+    artwork: i.thumbnail?.replace("-t500x500", "-t300x300") || "assets/default.jpg",
+    date: new Date(i.pubDate)
+  }));
+}
+
+function populateGrid(id, tracks) {
+  const el = document.getElementById(id);
+  if (!el) return;
+
+  el.innerHTML = tracks
     .map(
       t => `
       <div class="release-card">
-        <img src="${t.artwork}" alt="Artwork">
+        <img src="${t.artwork}" alt="${t.title}">
         <div class="release-overlay">
           <h3>${t.title}</h3>
           <a href="${t.url}" target="_blank">Listen</a>
         </div>
-      </div>
-    `
+      </div>`
     )
     .join("");
 }
 
 /* ----------------------------------------------------------
-   CONTACT FORM → GOOGLE SHEETS
+   CONTACT FORM — FORMSPREE ENDPOINT
 ---------------------------------------------------------- */
 function setupContactForm() {
   const form = document.getElementById("contact-form");
+  const msg = document.getElementById("form-msg");
+
   if (!form) return;
 
   form.addEventListener("submit", async e => {
     e.preventDefault();
+    msg.textContent = "Sending...";
 
-    const formMsg = document.getElementById("form-msg");
-
-    const payload = {
+    const data = {
       name: form.name.value,
       email: form.email.value,
       artist: form.artist.value,
@@ -91,100 +108,20 @@ function setupContactForm() {
     };
 
     try {
-      const res = await fetch("/api/contact", {
+      const res = await fetch("https://formspree.io/f/PLACEHOLDER", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(data)
       });
 
-      const data = await res.json();
-
-      if (data.success) {
-        formMsg.textContent = "Thanks — we'll be in touch soon.";
+      if (res.ok) {
+        msg.textContent = "Message sent — we’ll be in touch.";
         form.reset();
       } else {
-        formMsg.textContent = "Something went wrong. Try again later.";
+        msg.textContent = "Something went wrong.";
       }
-    } catch (error) {
-      formMsg.textContent = "Network error — please try again.";
-    }
-  });
-}
-    const cleaned = tracks.map(t => ({
-      title: t.title,
-      link: t.link,
-      thumbnail: getArtwork(t.thumbnail),
-      date: new Date(t.pubDate)
-    }));
-
-    allTracks.push(...cleaned);
-  }
-
-  allTracks.sort((a, b) => b.date - a.date);
-
-  const grid = document.getElementById("newReleasesGrid");
-  if (grid) grid.innerHTML = allTracks.slice(0, 12).map(createCard).join("");
-}
-
-/* ==========================================
-   Artist Sections (4 releases per artist)
-========================================== */
-
-async function loadArtistSections() {
-  for (const key in artists) {
-    const { username, target } = artists[key];
-    const container = document.getElementById(target);
-    if (!container) continue;
-
-    const tracks = await fetchRSS(username);
-
-    const cleaned = tracks.map(t => ({
-      title: t.title,
-      link: t.link,
-      thumbnail: getArtwork(t.thumbnail)
-    }));
-
-    container.innerHTML = cleaned.slice(0, 4).map(createCard).join("");
-  }
-}
-
-// ==========================================================
-// CONTACT FORM → VERCEL API → GOOGLE SHEETS
-// ==========================================================
-
-const form = document.getElementById("contact-form");
-const msgBox = document.getElementById("form-msg");
-
-if (form) {
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const formData = {
-      name: form.name.value,
-      email: form.email.value,
-      artist: form.artist.value,
-      message: form.message.value
-    };
-
-    msgBox.textContent = "Sending...";
-
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData)
-      });
-
-      const data = await res.json();
-
-      if (data.success) {
-        msgBox.textContent = "Message sent successfully!";
-        form.reset();
-      } else {
-        msgBox.textContent = "Oops, something went wrong.";
-      }
-    } catch (err) {
-      msgBox.textContent = "Error sending message.";
+    } catch {
+      msg.textContent = "Network error. Try again.";
     }
   });
 }
