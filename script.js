@@ -33,7 +33,7 @@ function fadeSections() {
 const ARTISTS = {
   nyral: "https://soundcloud.com/nyralmusic",
   akasyon: "https://soundcloud.com/akasyonmusic",
-  globasso: "https://soundcloud.com/globasso_dustdeep",
+  globasso: "https://soundcloud.com/globasso_dustdeep/globasso-its-you",
   kletron: "https://soundcloud.com/kletron",
   dustdeep: "https://soundcloud.com/dustdeep"
 };
