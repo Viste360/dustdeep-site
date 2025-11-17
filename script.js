@@ -34,31 +34,40 @@ function fadeSections() {
 ---------------------------------------------------------- */
 
 // FORM → GOOGLE SHEETS
-document.getElementById("contact-form").addEventListener("submit", async (e) => {
-  e.preventDefault();
-
+ddocument.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("contact-form");
   const msg = document.getElementById("form-msg");
-  msg.textContent = "Sending…";
 
-  const formData = new FormData(e.target);
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    msg.textContent = "Sending...";
 
-  try {
-    const res = await fetch(
-      "https://script.google.com/macros/s/AKfycbw3wCAsTeSS7cM5Plxd8ufjzpdrkdRzNR4RJUP3fpKfB6uf1IYv9hL3ZEC987KLgOKoyw/exec",
-      { method: "POST", body: formData }
-    );
+    const payload = {
+      name: form.name.value,
+      email: form.email.value,
+      artist: form.artist.value,
+      message: form.message.value,
+    };
 
-    const text = await res.text();
-    if (text.includes("Success")) {
-      msg.textContent = "Message sent — we’ll be in touch soon!";
-      e.target.reset();
-    } else {
-      msg.textContent = "Error — try again.";
+    try {
+      const res = await fetch(
+        "https://script.google.com/macros/s/AKfycbw3wCAsTeSS7cM5Plxd8ufjzpdrkdRzNR4RJUP3fpKfB6uf1IYv9hL3ZEC987KLgOKoyw/exec",
+        {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        }
+      );
+
+      msg.textContent = "Message sent — we’ll be in touch.";
+      form.reset();
+    } catch (error) {
+      msg.textContent = "Network error — try again.";
     }
-  } catch (err) {
-    msg.textContent = "Network error — try again.";
-  }
+  });
 });
+
 
 /* ----------------------------------------------------------
    TIKTOK PROFILE FEED (AUTO-EMBED)
