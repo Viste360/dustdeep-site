@@ -150,4 +150,22 @@ function setupContactForm() {
       msg.textContent = "Network error — try again.";
     }
   });
+   function injectJSONLD(list) {
+  list.forEach(item => {
+    const tag = document.createElement("script");
+    tag.type = "application/ld+json";
+    tag.textContent = JSON.stringify(item);
+    document.head.appendChild(tag);
+  });
+}
+
+(async function loadSchema() {
+  try {
+    const res = await fetch("/api/soundcloud");
+    const data = await res.json();
+    if (data.jsonld) injectJSONLD(data.jsonld);
+  } catch (e) {
+    console.error("Schema load failed:", e);
+  }
+})();
 }
