@@ -14,10 +14,13 @@ document.addEventListener("DOMContentLoaded", () => {
 ---------------------------------------------------------- */
 function fadeSections() {
   const observer = new IntersectionObserver(
-    entries =>
+    entries => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add("visible");
-      }),
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    },
     { threshold: 0.15 }
   );
 
@@ -36,23 +39,29 @@ const ARTISTS = {
 };
 
 async function loadReleases() {
-  const all = [];
+  try {
+    // Fetch all artist feeds in parallel
+    const entries = Object.entries(ARTISTS);
+    const feeds = await Promise.all(
+      entries.map(([key, url]) => fetchRSS(url))
+    );
 
-  for (const key in ARTISTS) {
-    const feed = await fetchRSS(ARTISTS[key]);
+    const allTracks = [];
 
-    // Fill per-artist section
-    populateGrid(`${key}Releases`, feed.slice(0, 4));
+    feeds.forEach((tracks, idx) => {
+      const key = entries[idx][0];
+      const containerId = `${key}Releases`;
 
-    // Add to global list
-    all.push(...feed);
+      populateGrid(containerId, tracks.slice(0, 4));
+      allTracks.push(...tracks);
+    });
+
+    // Global "New Releases" – newest first
+    allTracks.sort((a, b) => b.date - a.date);
+    populateGrid("newReleasesGrid", allTracks.slice(0, 12));
+  } catch (err) {
+    console.error("Error loading SoundCloud releases:", err);
   }
-
-  // Sort newest → oldest
-  all.sort((a, b) => b.date - a.date);
-
-  // Fill “New Releases”
-  populateGrid("newReleasesGrid", all.slice(0, 12));
 }
 
 async function fetchRSS(url) {
@@ -60,20 +69,28 @@ async function fetchRSS(url) {
     url + "/tracks"
   )}`;
 
-  const data = await fetch(rssURL).then(r => r.json());
+  const res = await fetch(rssURL);
+  if (!res.ok) {
+    console.error("RSS request failed for", url);
+    return [];
+  }
+
+  const data = await res.json();
   if (!data.items) return [];
 
-  return data.items.map(i => ({
-    title: i.title,
-    url: i.link,
-    artwork: i.thumbnail?.replace("-t500x500", "-t300x300"),
-    date: new Date(i.pubDate)
+  return data.items.map(item => ({
+    title: item.title,
+    url: item.link,
+    artwork:
+      item.thumbnail?.replace("-t500x500", "-t300x300") ||
+      "assets/DustDeep.png",
+    date: new Date(item.pubDate)
   }));
 }
 
 function populateGrid(id, tracks) {
   const el = document.getElementById(id);
-  if (!el || !tracks?.length) return;
+  if (!el || !tracks || !tracks.length) return;
 
   el.innerHTML = tracks
     .map(
@@ -82,7 +99,7 @@ function populateGrid(id, tracks) {
         <img src="${t.artwork}" alt="${t.title}">
         <div class="release-overlay">
           <h3>${t.title}</h3>
-          <a href="${t.url}" target="_blank">Listen</a>
+          <a href="${t.url}" target="_blank" rel="noopener">Listen</a>
         </div>
       </div>`
     )
@@ -92,18 +109,17 @@ function populateGrid(id, tracks) {
 /* ----------------------------------------------------------
    CONTACT FORM — FORMSPREE ENDPOINT
 ---------------------------------------------------------- */
+
 function setupContactForm() {
   const form = document.getElementById("contact-form");
   const msg = document.getElementById("form-msg");
-
   if (!form) return;
 
   form.addEventListener("submit", async e => {
     e.preventDefault();
+    if (msg) msg.textContent = "Sending...";
 
-    msg.textContent = "Sending…";
-
-    const payload = {
+    const data = {
       name: form.name.value,
       email: form.email.value,
       artist: form.artist.value,
@@ -114,17 +130,18 @@ function setupContactForm() {
       const res = await fetch("https://formspree.io/f/managdyj", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(data)
       });
 
       if (res.ok) {
-        msg.textContent = "Message sent — we’ll be in touch.";
+        if (msg) msg.textContent = "Message sent — we’ll be in touch.";
         form.reset();
       } else {
-        msg.textContent = "Something went wrong.";
+        if (msg) msg.textContent = "Something went wrong. Please try again.";
       }
-    } catch (err) {
-      msg.textContent = "Network error — try again.";
+    } catch (error) {
+      console.error("Form submit error:", error);
+      if (msg) msg.textContent = "Network error. Try again in a bit.";
     }
   });
 }
