@@ -283,6 +283,17 @@ header nav a:hover {
   box-shadow: 0 0 18px rgba(255,150,80,0.2);
   transform: translateY(-5px);
 }
+.release-card {
+  border: 1px solid #1f1f1f;
+  background: #101010;
+  transition: 0.25s ease;
+}
+
+.release-card:hover {
+  border-color: #ffb347;
+  box-shadow: 0 0 22px rgba(255,150,80,0.18);
+  transform: translateY(-6px);
+}
 
 .release-item img {
   width: 100%;
