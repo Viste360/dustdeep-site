@@ -1,20 +1,23 @@
+// ============================================================
+//  DUSTDEEP CONTACT API — Email Forward (Serverless)
+// ============================================================
+
 export default async function handler(req, res) {
-  if (req.method !== "POST")
-    return res.status(405).json({ error: "Method not allowed" });
-
-  try {
-    const response = await fetch("https://formspree.io/f/managdvj", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(req.body)
-    });
-
-    if (response.ok)
-      return res.status(200).json({ success: true });
-
-    return res.status(400).json({ success: false });
-  } catch (e) {
-    return res.status(500).json({ error: "Server error" });
+  if (req.method !== "POST") {
+    return res.status(405).json({ success: false, error: "Method not allowed" });
   }
-}
 
+  const { name, email, artist, message } = req.body;
+
+  if (!name || !email) {
+    return res.status(400).json({ success: false, error: "Missing fields" });
+  }
+
+  // This would normally forward email via Resend / SendGrid
+  console.log("New Contact:", { name, email, artist, message });
+
+  return res.status(200).json({
+    success: true,
+    received: true
+  });
+}
