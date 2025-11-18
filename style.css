@@ -504,4 +504,78 @@ footer {
   .release-item img {
     height: 210px;
   }
+/* ==========================================================
+   EXTRAS — Neon Hover · Active Navbar · Fade-In · Preloader
+========================================================== */
+
+/* ACTIVE NAV HIGHLIGHT */
+nav a.active {
+  color: var(--accent1);
+  text-shadow: 0 0 10px rgba(255,180,70,0.5);
+  font-weight: 600;
+}
+
+/* NAV HOVER — LUX NEON */
+nav a:hover {
+  color: var(--accent1);
+  text-shadow: 0 0 12px rgba(255,160,70,0.45),
+               0 0 25px rgba(255,160,70,0.25);
+}
+
+/* TIKTOK GLOW ENHANCEMENT */
+.tiktok-frame:hover {
+  box-shadow: 0 0 35px rgba(255,150,80,0.35);
+  transform: translateY(-3px);
+  transition: 0.35s ease;
+}
+
+/* REDUCE SECTION SPACING (more compact site) */
+.section {
+  padding: 4.5rem 1.2rem;   /* Was 6rem */
+}
+
+/* HERO tighter on mobile */
+@media (max-width: 600px) {
+  .hero {
+    padding-top: 6.5rem !important;
+  }
+  .section {
+    padding: 3.5rem 1rem;
+  }
+}
+
+/* ==========================================================
+   FADE-IN ON SCROLL
+========================================================== */
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: 0.7s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==========================================================
+   PRELOADER
+========================================================== */
+
+#preloader {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 0.6s ease;
+}
+
+#preloader img {
+  width: 90px;
+  filter: drop-shadow(0 0 12px rgba(255,160,70,0.5));
+  animation: logoFloat 5s infinite ease-in-out;
 }
