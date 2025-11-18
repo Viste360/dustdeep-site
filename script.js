@@ -203,3 +203,11 @@ function loadTikTokFeed() {
     window.tiktokLoaded = true;
   }
 }
+// Mobile menu
+const burger = document.getElementById("hamburger");
+const mobileMenu = document.getElementById("mobile-menu");
+
+burger.addEventListener("click", () => {
+  burger.classList.toggle("open");
+  mobileMenu.classList.toggle("open");
+});
