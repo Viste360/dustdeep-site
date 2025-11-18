@@ -273,6 +273,32 @@ nav a:hover {
   border-radius: 12px;
   margin-bottom: 1rem;
 }
+/* ==========================================================
+   RELEASES — SPOTIFY EMBEDS
+========================================================== */
+
+.release-grid {
+  max-width: var(--max-width);
+  margin: 2rem auto 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.release-card {
+  background: var(--bg2);
+  padding: 1.5rem;
+  border-radius: 16px;
+  border: 1px solid #222;
+  box-shadow: 0 0 18px rgba(255,150,80,0.18);
+  transition: var(--transition);
+}
+
+.release-card:hover {
+  border-color: var(--accent1);
+  box-shadow: 0 0 28px rgba(255,150,80,0.28);
+  transform: translateY(-4px);
+}
 
 /* ==========================================================
    TIKTOK FEED
