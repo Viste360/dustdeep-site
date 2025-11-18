@@ -65,18 +65,20 @@ function initMobileMenu() {
 
   if (!burger || !mobileMenu) return;
 
-  burger.addEventListener("click", () => {
-    burger.classList.toggle("open");
-    mobileMenu.classList.toggle("open");
-  });
+  const overlay = document.getElementById("menu-overlay");
+burger.addEventListener("click", () => {
+  burger.classList.toggle("open");
+  mobileMenu.classList.toggle("open");
+  overlay.classList.toggle("open");
+});
 
-  // Close menu when clicking a mobile link
-  document.querySelectorAll("#mobile-menu a").forEach(link => {
-    link.addEventListener("click", () => {
-      burger.classList.remove("open");
-      mobileMenu.classList.remove("open");
-    });
-  });
+// Clicking outside closes menu
+overlay.addEventListener("click", () => {
+  burger.classList.remove("open");
+  mobileMenu.classList.remove("open");
+  overlay.classList.remove("open");
+});
+
 }
 
 /* ----------------------------------------------------------
