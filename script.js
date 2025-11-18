@@ -69,6 +69,14 @@ function initMobileMenu() {
     burger.classList.toggle("open");
     mobileMenu.classList.toggle("open");
   });
+
+  // Close menu when clicking a mobile link
+  document.querySelectorAll("#mobile-menu a").forEach(link => {
+    link.addEventListener("click", () => {
+      burger.classList.remove("open");
+      mobileMenu.classList.remove("open");
+    });
+  });
 }
 
 /* ----------------------------------------------------------
