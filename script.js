@@ -54,6 +54,15 @@ function initNavHighlight() {
   updateHighlight();
 }
 
+/* MOBILE NAV TOGGLE */
+const burger = document.getElementById("hamburger");
+const nav = document.querySelector("nav");
+
+burger.addEventListener("click", () => {
+  burger.classList.toggle("open");
+  nav.classList.toggle("show");
+});
+
 /* ----------------------------------------------------------
    FADE-IN ON SCROLL
 ---------------------------------------------------------- */
