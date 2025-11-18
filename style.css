@@ -301,6 +301,38 @@ form textarea {
   transform: translateY(4px);
   transition: 0.3s ease;
 }
+/* ============================================
+   FORM — Animated Validation
+============================================ */
+.input-error {
+  border-color: #ff4d4d !important;
+  box-shadow: 0 0 12px rgba(255, 77, 77, 0.4);
+  animation: shake 0.25s ease-in-out;
+}
+
+.error-text {
+  color: #ff4d4d;
+  font-size: 0.85rem;
+  margin-top: -8px;
+  margin-bottom: 10px;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: 0.25s ease;
+}
+
+.error-text.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Shake animation */
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  50% { transform: translateX(4px); }
+  75% { transform: translateX(-4px); }
+  100% { transform: translateX(0); }
+}
 
 /* SHOW ERROR */
 .field.error .error-msg {
