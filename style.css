@@ -350,15 +350,15 @@ nav a:hover {
   margin: auto;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.8rem;
 }
 
 .release-item {
   background: #111;
-  padding: 1.5rem;
-  border-radius: 20px;
+  padding: 1.4rem;
+  border-radius: 18px;
   border: 1px solid #222;
-  box-shadow: 0 0 25px rgba(255,150,80,0.12);
+  box-shadow: 0 0 20px rgba(255,150,80,0.12);
 }
 
 .release-card:hover {
@@ -442,8 +442,16 @@ form textarea {
   min-height: 140px;
 }
 
+/* Compact form */
 .field {
-  margin-bottom: 0.65rem;
+  margin-bottom: 0.55rem !important;
+}
+
+form input,
+form textarea {
+  padding: 0.65rem !important;
+  border-radius: 6px;
+  font-size: 0.95rem;
 }
 
 
