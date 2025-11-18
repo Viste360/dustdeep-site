@@ -345,6 +345,21 @@ nav a:hover {
   box-shadow: 0 0 18px rgba(255,150,80,0.18);
   transition: var(--transition);
 }
+.release-list {
+  max-width: 900px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.release-item {
+  background: #111;
+  padding: 1.5rem;
+  border-radius: 20px;
+  border: 1px solid #222;
+  box-shadow: 0 0 25px rgba(255,150,80,0.12);
+}
 
 .release-card:hover {
   border-color: var(--accent1);
@@ -376,14 +391,12 @@ nav a:hover {
 .tiktok-frame {
   max-width: 760px;
   margin: 0 auto;
-  padding: 1rem;
+  padding: 1.2rem;
   border-radius: 20px;
-  background:
-    linear-gradient(#0b0b0b, #0b0b0b) padding-box,
-    linear-gradient(90deg, var(--accent1), var(--accent2)) border-box;
-  border: 2px solid transparent;
-  box-shadow: 0 0 25px rgba(255,150,80,0.25);
+  background: #0b0b0b;
+  border: 2px solid #222;
   transition: 0.35s ease;
+  box-shadow: none;
 }
 
 .tiktok-frame:hover {
@@ -417,7 +430,7 @@ form textarea {
   width: 100%;
   background: #161616;
   border: 1px solid #222;
-  padding: 1rem;
+  padding: 0.7rem;
   border-radius: 8px;
   color: white;
   font-size: 1rem;
@@ -430,9 +443,9 @@ form textarea {
 }
 
 .field {
-  position: relative;
-  margin-bottom: 1.2rem;
+  margin-bottom: 0.65rem;
 }
+
 
 .error-text {
   color: #ff4d4d;
