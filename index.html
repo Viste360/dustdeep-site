@@ -5,16 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <title>DustDeep — Curating Sonic Identities Across Continents</title>
+
+  <!-- SEO -->
+  <meta name="description" content="DustDeep is a cross-continental label cultivating artists with distinct cultural and sonic identities." />
+  <meta name="author" content="DustDeep" />
+
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
 
+<!-- =======================
+      PRELOADER
+========================== -->
+<div id="preloader">
+  <img src="assets/DustDeepIcon.png" alt="Loading...">
+</div>
+
+<!-- =======================
+      HEADER
+========================== -->
 <header>
   <a href="#top" class="logo">
     <img src="assets/DustDeepIcon.png" alt="DustDeep Logo">
   </a>
-  <nav>
+  <nav id="navbar">
     <a href="#about">About</a>
     <a href="#artists">Artists</a>
     <a href="#watch">Watch</a>
@@ -22,8 +37,10 @@
   </nav>
 </header>
 
-<!-- HERO -->
-<section class="hero" id="top">
+<!-- =======================
+      HERO
+========================== -->
+<section class="hero fade-in" id="top">
   <img src="assets/DustDeep.png" alt="DustDeep Logo" class="hero-logo">
 
   <h1>Curating Sonic Identities Across Continents</h1>
@@ -39,8 +56,10 @@
   </div>
 </section>
 
-<!-- ABOUT -->
-<section class="section" id="about">
+<!-- =======================
+      ABOUT
+========================== -->
+<section class="section fade-in" id="about">
   <h2>About DustDeep</h2>
 
   <p class="about-short">
@@ -53,18 +72,21 @@
   </p>
 </section>
 
-<!-- ARTISTS -->
-<section class="section" id="artists">
+<!-- =======================
+      ARTISTS
+========================== -->
+<section class="section fade-in" id="artists">
   <h2>Artists</h2>
 
   <div class="artist-grid">
 
     <!-- Nyral -->
-    <div class="artist-card">
-      <img src="assets/nyral.jpg" alt="Nyral">
-      <h3>Nyral</h3>
+    <div class="artist-card" itemscope itemtype="https://schema.org/MusicGroup">
+      <img src="assets/nyral.jpg" alt="Nyral" itemprop="image">
+      <h3 itemprop="name">Nyral</h3>
+      <meta itemprop="genre" content="Melodic Tech, Afro Tech">
       <p class="tag">Melodic Tech · Afro Tech</p>
-      <p class="desc">
+      <p class="desc" itemprop="description">
         Deep melodic storytelling fused with Afro-tech percussion and evolving atmospheric layers.
       </p>
       <iframe width="100%" height="120" frameborder="no"
@@ -72,11 +94,12 @@
     </div>
 
     <!-- Akasyon -->
-    <div class="artist-card">
-      <img src="assets/akasyon.jpg" alt="Akasyon">
-      <h3>Akasyon</h3>
+    <div class="artist-card" itemscope itemtype="https://schema.org/MusicGroup">
+      <img src="assets/akasyon.jpg" alt="Akasyon" itemprop="image">
+      <h3 itemprop="name">Akasyon</h3>
+      <meta itemprop="genre" content="Melodic Tech Remixes">
       <p class="tag">Melodic Tech Remixes</p>
-      <p class="desc">
+      <p class="desc" itemprop="description">
         A German–US duo crafting warm melodic tech and cinematic remix-driven soundscapes.
       </p>
       <iframe width="100%" height="120" frameborder="no"
@@ -84,11 +107,12 @@
     </div>
 
     <!-- Globasso -->
-    <div class="artist-card">
-      <img src="assets/globasso.jpg" alt="Globasso">
-      <h3>Globasso</h3>
+    <div class="artist-card" itemscope itemtype="https://schema.org/MusicGroup">
+      <img src="assets/globasso.jpg" alt="Globasso" itemprop="image">
+      <h3 itemprop="name">Globasso</h3>
+      <meta itemprop="genre" content="Global Bass">
       <p class="tag">Global Bass</p>
-      <p class="desc">
+      <p class="desc" itemprop="description">
         Brooklyn-rooted producer fusing Afro-diasporic percussion, club energy, and experimental bass textures.
       </p>
       <iframe width="100%" height="120" frameborder="no"
@@ -96,11 +120,12 @@
     </div>
 
     <!-- Kletron -->
-    <div class="artist-card">
-      <img src="assets/tommyk.jpg" alt="Kletron">
-      <h3>Kletron</h3>
+    <div class="artist-card" itemscope itemtype="https://schema.org/MusicGroup">
+      <img src="assets/tommyk.jpg" alt="Kletron" itemprop="image">
+      <h3 itemprop="name">Kletron</h3>
+      <meta itemprop="genre" content="Deep House">
       <p class="tag">Deep House</p>
-      <p class="desc">
+      <p class="desc" itemprop="description">
         Analog-warm deep house with hypnotic basslines and refined late-night atmospherics.
       </p>
       <iframe width="100%" height="120" frameborder="no"
@@ -110,8 +135,10 @@
   </div>
 </section>
 
-<!-- WATCH / TIKTOK -->
-<section class="section" id="watch">
+<!-- =======================
+      WATCH
+========================== -->
+<section class="section fade-in" id="watch">
   <h2>Watch</h2>
 
   <div class="tiktok-frame">
@@ -127,15 +154,16 @@
   <script async src="https://www.tiktok.com/embed.js"></script>
 </section>
 
-  <script async src="https://www.tiktok.com/embed.js"></script>
-</section>
-
-<!-- CONTACT -->
-<section class="section join" id="contact">
+<!-- =======================
+      CONTACT
+========================== -->
+<section class="section join fade-in" id="contact">
   <h2>Join the Collective</h2>
 
   <form id="contact-form">
-<input type="text" name="website" id="website" style="display:none !important">
+
+    <input type="text" name="website" id="website" style="display:none !important">
+
     <div class="field">
       <input type="text" id="name" name="name" placeholder="Your Name" required>
       <div class="error-text">Please enter your name</div>
@@ -162,10 +190,12 @@
     </button>
 
     <div id="form-msg"></div>
-
   </form>
 </section>
 
+<!-- =======================
+      FOOTER
+========================== -->
 <footer>
   <div class="socials">
     <a href="https://soundcloud.com/dustdeep" target="_blank">SoundCloud</a> ·
