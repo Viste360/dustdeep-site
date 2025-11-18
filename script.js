@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
   fadeInOnScroll();
   initNavHighlight();
   startPreloader();
+  initMobileMenu();
 });
 
 /* ----------------------------------------------------------
@@ -22,7 +23,7 @@ function startPreloader() {
   setTimeout(() => {
     pre.style.opacity = 0;
     pre.style.pointerEvents = "none";
-    setTimeout(() => pre.remove(), 500); // fully removes
+    setTimeout(() => pre.remove(), 500);
   }, 600);
 }
 
@@ -38,7 +39,7 @@ function initNavHighlight() {
     let current = "";
 
     sections.forEach((sec) => {
-      const top = sec.offsetTop - 80; // corrected offset
+      const top = sec.offsetTop - 80;
       if (scrollY >= top) current = sec.id;
     });
 
@@ -54,14 +55,21 @@ function initNavHighlight() {
   updateHighlight();
 }
 
-/* MOBILE NAV TOGGLE */
-const burger = document.getElementById("hamburger");
-const nav = document.querySelector("nav");
+/* ----------------------------------------------------------
+   MOBILE MENU
+---------------------------------------------------------- */
 
-burger.addEventListener("click", () => {
-  burger.classList.toggle("open");
-  nav.classList.toggle("show");
-});
+function initMobileMenu() {
+  const burger = document.getElementById("hamburger");
+  const mobileMenu = document.getElementById("mobile-menu");
+
+  if (!burger || !mobileMenu) return;
+
+  burger.addEventListener("click", () => {
+    burger.classList.toggle("open");
+    mobileMenu.classList.toggle("open");
+  });
+}
 
 /* ----------------------------------------------------------
    FADE-IN ON SCROLL
@@ -203,11 +211,3 @@ function loadTikTokFeed() {
     window.tiktokLoaded = true;
   }
 }
-// Mobile menu
-const burger = document.getElementById("hamburger");
-const mobileMenu = document.getElementById("mobile-menu");
-
-burger.addEventListener("click", () => {
-  burger.classList.toggle("open");
-  mobileMenu.classList.toggle("open");
-});
