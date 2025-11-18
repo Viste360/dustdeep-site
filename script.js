@@ -62,23 +62,38 @@ function initNavHighlight() {
 function initMobileMenu() {
   const burger = document.getElementById("hamburger");
   const mobileMenu = document.getElementById("mobile-menu");
-
-  if (!burger || !mobileMenu) return;
-
   const overlay = document.getElementById("menu-overlay");
-burger.addEventListener("click", () => {
-  burger.classList.toggle("open");
-  mobileMenu.classList.toggle("open");
-  overlay.classList.toggle("open");
-});
 
-// Clicking outside closes menu
-overlay.addEventListener("click", () => {
-  burger.classList.remove("open");
-  mobileMenu.classList.remove("open");
-  overlay.classList.remove("open");
-});
+  if (!burger || !mobileMenu || !overlay) return;
 
+  // Open/Close hamburger
+  burger.addEventListener("click", () => {
+    burger.classList.toggle("open");
+    mobileMenu.classList.toggle("open");
+    overlay.classList.toggle("open");
+
+    // Scroll lock
+    document.body.style.overflow =
+      mobileMenu.classList.contains("open") ? "hidden" : "";
+  });
+
+  // Close when clicking overlay
+  overlay.addEventListener("click", () => {
+    burger.classList.remove("open");
+    mobileMenu.classList.remove("open");
+    overlay.classList.remove("open");
+    document.body.style.overflow = "";
+  });
+
+  // Close when clicking any mobile link
+  document.querySelectorAll("#mobile-menu a").forEach(link => {
+    link.addEventListener("click", () => {
+      burger.classList.remove("open");
+      mobileMenu.classList.remove("open");
+      overlay.classList.remove("open");
+      document.body.style.overflow = "";
+    });
+  });
 }
 
 /* ----------------------------------------------------------
