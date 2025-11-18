@@ -4,62 +4,110 @@
 ========================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("formTime").value = Date.now();
-  setupForm();
+  setupAnimatedValidation();
+  setupGoogleFormSubmit();
 });
 
-/* ----------------------------------------------------------
-   FORM HANDLING + VALIDATION + SPAM PROTECTION
----------------------------------------------------------- */
-function setupForm() {
+/* ---------------------------------------------
+   1) Animated Front-End Validation
+--------------------------------------------- */
+function setupAnimatedValidation() {
+  const form = document.getElementById("contact-form");
+  const fields = ["name", "email", "artist", "message"];
+
+  fields.forEach(id => {
+    const input = document.getElementById(id);
+
+    // Remove error style when typing
+    input.addEventListener("input", () => {
+      input.classList.remove("input-error");
+      const error = input.nextElementSibling;
+      if (error && error.classList.contains("error-text")) {
+        error.classList.remove("visible");
+      }
+    });
+  });
+}
+
+function showError(input, message) {
+  input.classList.add("input-error");
+
+  let error = input.nextElementSibling;
+
+  // Create error element if missing
+  if (!error || !error.classList.contains("error-text")) {
+    error = document.createElement("div");
+    error.classList.add("error-text");
+    input.insertAdjacentElement("afterend", error);
+  }
+
+  error.textContent = message;
+  requestAnimationFrame(() => error.classList.add("visible"));
+}
+
+/* ---------------------------------------------
+   2) Google Apps Script Submit
+--------------------------------------------- */
+function setupGoogleFormSubmit() {
   const form = document.getElementById("contact-form");
   const msg = document.getElementById("form-msg");
-  const btn = form.querySelector(".form-btn");
-  const btnText = btn.querySelector(".btn-text");
-  const loader = btn.querySelector(".loader");
+
+  if (!form) return;
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    // Validate
-    if (!validateForm(form)) return;
+    const name = document.getElementById("name");
+    const email = document.getElementById("email");
+    const artist = document.getElementById("artist");
+    const message = document.getElementById("message");
 
-    // UI loading
-    btnText.style.display = "none";
-    loader.style.display = "block";
+    let valid = true;
 
-    const formData = new FormData(form);
-    const json = Object.fromEntries(formData.entries());
-
-    // Add timestamp for bot detection
-    json.loadTime = document.getElementById("formTime").value;
-
-    try {
-      const res = await fetch("https://script.google.com/macros/s/AKfycbw3wCAsTeSS7cM5Plxd8ufjzpdrkdRzNR4RJUP3fpKfB6uf1IYv9hL3ZEC987KLgOKoyw/exec", {
-        method: "POST",
-        body: JSON.stringify(json),
-        headers: { "Content-Type": "application/json" }
-      });
-
-      const data = await res.json();
-
-      if (data.success) {
-        msg.textContent = "Message sent — we’ll be in touch.";
-        msg.className = "success";
-        form.reset();
-        document.getElementById("formTime").value = Date.now();
-      } else {
-        msg.textContent = data.error || "Something went wrong.";
-        msg.className = "error";
-      }
-    } catch (error) {
-      msg.textContent = "Network error — try again.";
-      msg.className = "error";
+    if (!name.value.trim()) {
+      showError(name, "Please enter your name.");
+      valid = false;
+    }
+    if (!email.value.trim() || !email.value.includes("@")) {
+      showError(email, "Please enter a valid email.");
+      valid = false;
+    }
+    if (!artist.value.trim()) {
+      showError(artist, "Please specify your artist or label.");
+      valid = false;
+    }
+    if (!message.value.trim()) {
+      showError(message, "Please write a message.");
+      valid = false;
     }
 
-    // Reset button
-    btnText.style.display = "inline";
-    loader.style.display = "none";
+    if (!valid) return;
+
+    // Submit to Apps Script
+    msg.textContent = "Sending…";
+
+    try {
+      const res = await fetch(
+        "https://script.google.com/macros/s/AKfycbw3wCAsTeSS7cM5Plxd8ufjzpdrkdRzNR4RJUP3fpKfB6uf1IYv9hL3ZEC987KLgOKoyw/exec",
+        {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: name.value,
+            email: email.value,
+            artist: artist.value,
+            message: message.value
+          })
+        }
+      );
+
+      msg.textContent = "Message sent — thank you!";
+      form.reset();
+
+    } catch (err) {
+      msg.textContent = "Network error — try again.";
+    }
   });
 }
 
