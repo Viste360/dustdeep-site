@@ -4,46 +4,70 @@
 ========================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
-  setupAnimatedValidation();
-  setupGoogleFormSubmit();
-});
+    const form = document.getElementById("contact-form");
+    const msg = document.getElementById("form-msg");
 
-/* ---------------------------------------------
-   1) Animated Front-End Validation
---------------------------------------------- */
-function setupAnimatedValidation() {
-  const form = document.getElementById("contact-form");
-  const fields = ["name", "email", "artist", "message"];
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
 
-  fields.forEach(id => {
-    const input = document.getElementById(id);
+        let valid = true;
 
-    // Remove error style when typing
-    input.addEventListener("input", () => {
-      input.classList.remove("input-error");
-      const error = input.nextElementSibling;
-      if (error && error.classList.contains("error-text")) {
-        error.classList.remove("visible");
-      }
+        document.querySelectorAll(".field").forEach((field) => {
+            const input = field.querySelector("input, textarea");
+            const errorText = field.querySelector(".error-text");
+
+            if (!input.value.trim()) {
+                field.classList.add("error");
+                input.classList.add("input-error");
+                errorText.classList.add("visible");
+                valid = false;
+            } else {
+                field.classList.remove("error");
+                input.classList.remove("input-error");
+                errorText.classList.remove("visible");
+            }
+        });
+
+        if (!valid) return;
+
+        // LOADING STATE
+        document.querySelector(".btn-text").style.display = "none";
+        document.querySelector(".loader").style.display = "block";
+
+        const formData = {
+            name: name.value.trim(),
+            email: email.value.trim(),
+            artist: artist.value.trim(),
+            message: message.value.trim(),
+        };
+
+        try {
+            const res = await fetch(
+                "https://script.google.com/macros/s/AKfycbw3wCAsTeSS7cM5Plxd8ufjzpdrkdRzNR4RJUP3fpKfB6uf1IYv9hL3ZEC987KLgOKoyw/exec",
+                {
+                    method: "POST",
+                    mode: "no-cors",
+                    body: JSON.stringify(formData)
+                }
+            );
+
+            msg.textContent = "Message sent successfully!";
+            msg.classList.add("success");
+
+            form.reset();
+
+        } catch (error) {
+            msg.textContent = "Network error — try again.";
+            msg.classList.add("error");
+        }
+
+        document.querySelector(".loader").style.display = "none";
+        document.querySelector(".btn-text").style.display = "block";
+
+        msg.style.opacity = 1;
+        setTimeout(() => msg.style.opacity = 0, 3000);
     });
-  });
-}
-
-function showError(input, message) {
-  input.classList.add("input-error");
-
-  let error = input.nextElementSibling;
-
-  // Create error element if missing
-  if (!error || !error.classList.contains("error-text")) {
-    error = document.createElement("div");
-    error.classList.add("error-text");
-    input.insertAdjacentElement("afterend", error);
-  }
-
-  error.textContent = message;
-  requestAnimationFrame(() => error.classList.add("visible"));
-}
+});
 
 /* ---------------------------------------------
    2) Google Apps Script Submit
