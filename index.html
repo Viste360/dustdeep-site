@@ -132,14 +132,36 @@
   <h2>Join the Collective</h2>
 
   <form id="contact-form">
-    <input type="text" name="name" placeholder="Your Name" required>
-    <input type="email" name="email" placeholder="Your Email" required>
-    <input type="text" name="artist" placeholder="Artist / Label">
-    <textarea name="message" placeholder="Your Message"></textarea>
-    <button type="submit" class="btn">Send</button>
-    <div id="form-msg"></div>
-  </form>
-</section>
+  
+  <div class="field">
+    <input type="text" id="name" name="name" placeholder="Your Name" required>
+    <div class="error-text">Please enter your name</div>
+  </div>
+
+  <div class="field">
+    <input type="email" id="email" name="email" placeholder="Your Email" required>
+    <div class="error-text">Please enter a valid email</div>
+  </div>
+
+  <div class="field">
+    <input type="text" id="artist" name="artist" placeholder="Artist / Label">
+    <div class="error-text">Please enter your artist or leave blank</div>
+  </div>
+
+  <div class="field">
+    <textarea id="message" name="message" placeholder="Your Message" required></textarea>
+    <div class="error-text">Please enter a message</div>
+  </div>
+
+  <button type="submit" class="form-btn">
+    <span class="btn-text">Send</span>
+    <div class="loader"></div>
+  </button>
+
+  <div id="form-msg"></div>
+
+</form>
+
 
 <footer>
   <div class="socials">
