@@ -14,35 +14,26 @@
 </head>
 
 <body>
+
+<!-- PRELOADER (keep ONE) -->
 <div id="preloader">
-  <img src="assets/DustDeepIcon.png" alt="Loading…">
+  <img src="assets/DustDeepIcon.png" alt="Loading..." />
 </div>
 
-  <!-- =======================
-      PRELOADER
-========================== -->
-<div id="preloader">
-  <img src="assets/DustDeepIcon.png" alt="Loading...">
-</div>
-
-<!-- =======================
-      HEADER
-========================== -->
+<!-- HEADER -->
 <header>
   <a href="#top" class="logo">
     <img src="assets/DustDeepIcon.png" alt="DustDeep Logo">
   </a>
   <nav id="navbar">
-    <a href="#about">About</a>
-    <a href="#artists">Artists</a>
-    <a href="#watch">Watch</a>
-    <a href="#contact">Contact</a>
+    <a href="#about" data-nav="about">About</a>
+    <a href="#artists" data-nav="artists">Artists</a>
+    <a href="#watch" data-nav="watch">Watch</a>
+    <a href="#contact" data-nav="contact">Contact</a>
   </nav>
 </header>
 
-<!-- =======================
-      HERO
-========================== -->
+<!-- HERO -->
 <section class="hero fade-in" id="top">
   <img src="assets/DustDeep.png" alt="DustDeep Logo" class="hero-logo">
 
@@ -59,9 +50,7 @@
   </div>
 </section>
 
-<!-- =======================
-      ABOUT
-========================== -->
+<!-- ABOUT -->
 <section class="section fade-in" id="about">
   <h2>About DustDeep</h2>
 
@@ -75,9 +64,7 @@
   </p>
 </section>
 
-<!-- =======================
-      ARTISTS
-========================== -->
+<!-- ARTISTS -->
 <section class="section fade-in" id="artists">
   <h2>Artists</h2>
 
@@ -93,7 +80,7 @@
         Deep melodic storytelling fused with Afro-tech percussion and evolving atmospheric layers.
       </p>
       <iframe width="100%" height="120" frameborder="no"
-        src="https://w.soundcloud.com/player/?url=https://soundcloud.com/nyralmusic&auto_play=false"></iframe>
+        src="https://w.soundcloud.com/player/?url=https://soundcloud.com/nyralmusic/latest&auto_play=false"></iframe>
     </div>
 
     <!-- Akasyon -->
@@ -106,7 +93,7 @@
         A German–US duo crafting warm melodic tech and cinematic remix-driven soundscapes.
       </p>
       <iframe width="100%" height="120" frameborder="no"
-        src="https://w.soundcloud.com/player/?url=https://soundcloud.com/akasyonmusic&auto_play=false"></iframe>
+        src="https://w.soundcloud.com/player/?url=https://soundcloud.com/akasyonmusic/latest&auto_play=false"></iframe>
     </div>
 
     <!-- Globasso -->
@@ -119,7 +106,7 @@
         Brooklyn-rooted producer fusing Afro-diasporic percussion, club energy, and experimental bass textures.
       </p>
       <iframe width="100%" height="120" frameborder="no"
-        src="https://w.soundcloud.com/player/?url=https://soundcloud.com/globasso_dustdeep&auto_play=false"></iframe>
+        src="https://w.soundcloud.com/player/?url=https://soundcloud.com/globasso_dustdeep/latest&auto_play=false"></iframe>
     </div>
 
     <!-- Kletron -->
@@ -132,15 +119,13 @@
         Analog-warm deep house with hypnotic basslines and refined late-night atmospherics.
       </p>
       <iframe width="100%" height="120" frameborder="no"
-        src="https://w.soundcloud.com/player/?url=https://soundcloud.com/kletron&auto_play=false"></iframe>
+        src="https://w.soundcloud.com/player/?url=https://soundcloud.com/kletron/latest&auto_play=false"></iframe>
     </div>
 
   </div>
 </section>
 
-<!-- =======================
-      WATCH
-========================== -->
+<!-- WATCH -->
 <section class="section fade-in" id="watch">
   <h2>Watch</h2>
 
@@ -157,13 +142,11 @@
   <script async src="https://www.tiktok.com/embed.js"></script>
 </section>
 
-<!-- =======================
-      CONTACT
-========================== -->
+<!-- CONTACT -->
 <section class="section join fade-in" id="contact">
   <h2>Join the Collective</h2>
 
-  <form id="contact-form">
+  <form id="contact-form" data-start="">
 
     <input type="text" name="website" id="website" style="display:none !important">
 
@@ -196,9 +179,7 @@
   </form>
 </section>
 
-<!-- =======================
-      FOOTER
-========================== -->
+<!-- FOOTER -->
 <footer>
   <div class="socials">
     <a href="https://soundcloud.com/dustdeep" target="_blank">SoundCloud</a> ·
