@@ -112,28 +112,25 @@ function validateForm(form) {
   return valid;
 }
 
-/* ----------------------------------------------------------
-   TIKTOK PROFILE FEED
----------------------------------------------------------- */
+/* -------------------------------
+   TIKTOK CREATOR FEED LOADER
+--------------------------------- */
 
 function loadTikTokFeed() {
-  const section = document.querySelector("#watch .tiktok-wrapper");
+    const embed = document.querySelector(".tiktok-embed");
 
-  if (!section) return;
+    if (!embed) return;
 
-  section.innerHTML = `
-    <blockquote 
-      class="tiktok-embed"
-      cite="https://www.tiktok.com/@dustdeepmusic"
-      data-unique-id="dustdeepmusic"
-      data-embed-type="creator"
-      style="max-width: 780px; margin: auto; border-radius: 14px; overflow: hidden;">
-        <section>Loading TikTok…</section>
-    </blockquote>
-  `;
+    // Prevent duplicate script loads
+    if (!window.tiktokScriptLoaded) {
+        const s = document.createElement("script");
+        s.src = "https://www.tiktok.com/embed.js";
+        s.async = true;
+        document.body.appendChild(s);
 
-  const script = document.createElement("script");
-  script.src = "https://www.tiktok.com/embed.js";
-  script.async = true;
-  document.body.appendChild(script);
+        window.tiktokScriptLoaded = true;
+    }
+}
+
+document.addEventListener("DOMContentLoaded", loadTikTokFeed);
 }
