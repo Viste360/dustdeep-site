@@ -22,6 +22,7 @@ function startPreloader() {
   setTimeout(() => {
     pre.style.opacity = 0;
     pre.style.pointerEvents = "none";
+    setTimeout(() => pre.remove(), 500); // fully removes
   }, 600);
 }
 
@@ -37,7 +38,7 @@ function initNavHighlight() {
     let current = "";
 
     sections.forEach((sec) => {
-      const top = sec.offsetTop - 150;
+      const top = sec.offsetTop - 80; // corrected offset
       if (scrollY >= top) current = sec.id;
     });
 
@@ -63,9 +64,7 @@ function fadeInOnScroll() {
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-        }
+        if (entry.isIntersecting) entry.target.classList.add("visible");
       });
     },
     { threshold: 0.2 }
@@ -86,32 +85,20 @@ function initForm() {
   const btnText = document.querySelector(".btn-text");
   const loader = document.querySelector(".loader");
 
-  // Anti-spam timestamp
   form.dataset.start = Date.now();
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    // Honeypot
-    if (form.website.value !== "") {
-      console.warn("Bot blocked (honeypot)");
-      return;
-    }
+    if (form.website.value !== "") return;
+    if (Date.now() - parseInt(form.dataset.start) < 1500) return;
 
-    // Too-fast submission (<1.5s)
-    if (Date.now() - parseInt(form.dataset.start) < 1500) {
-      console.warn("Bot blocked (too fast)");
-      return;
-    }
-
-    // Lock to prevent burst spam
     if (form.classList.contains("locked")) return;
     form.classList.add("locked");
 
     const isValid = validateForm(form);
     if (!isValid) return;
 
-    // Loading UI
     btnText.style.display = "none";
     loader.style.display = "block";
 
@@ -136,6 +123,7 @@ function initForm() {
       msg.textContent = "Message sent — we’ll be in touch.";
       msg.className = "success";
       msg.style.opacity = 1;
+
       form.reset();
     } catch {
       msg.textContent = "Network error — try again.";
@@ -147,9 +135,7 @@ function initForm() {
     btnText.style.display = "block";
 
     setTimeout(() => (msg.style.opacity = 0), 3500);
-
-    // Unlock after 3s
-    setTimeout(() => form.classList.remove("locked"), 3000);
+    setTimeout(() => form.classList.remove("locked"), 2000);
   });
 }
 
