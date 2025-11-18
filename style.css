@@ -31,7 +31,10 @@ body {
 
 a { color: inherit; }
 
-/* ANIMATIONS */
+/* ==========================================================
+   ANIMATIONS
+========================================================== */
+
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
@@ -41,512 +44,6 @@ a { color: inherit; }
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-8px); }
 }
-
-/* ==========================================================
-   HEADER
-========================================================== */
-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding: 1rem 2rem;
-  background: rgba(0,0,0,0.75);
-  backdrop-filter: blur(10px);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #1a1a1a;
-  z-index: 1000;
-}
-
-header .logo img {
-  height: 34px;
-  transition: var(--transition);
-}
-
-header nav a {
-  color: #fff;
-  margin: 0 1rem;
-  text-decoration: none;
-  font-weight: 500;
-  transition: var(--transition);
-}
-
-header nav a:hover {
-  color: var(--accent1);
-}
-
-/* ==========================================================
-   HERO
-========================================================== */
-.hero {
-  padding: 10rem 1rem 5rem;
-  text-align: center;
-  max-width: var(--max-width);
-  margin: auto;
-  animation: fadeInUp 1s ease;
-}
-
-.hero-logo {
-  width: 220px;
-  max-width: 75vw;
-  margin-bottom: 2rem;
-  filter: drop-shadow(0 0 15px rgba(255,179,71,0.4));
-  animation: logoFloat 6s ease-in-out infinite;
-}
-
-.hero h1 {
-  font-family: "Space Grotesk", sans-serif;
-  font-size: 2.1rem;
-  margin-bottom: 0.5rem;
-  font-weight: 600;
-}
-
-.subtitle {
-  opacity: 0.9;
-  margin-bottom: 1rem;
-}
-
-.mission {
-  font-size: 1.15rem;
-  max-width: 650px;
-  margin: 1.5rem auto 2rem;
-  opacity: 0.9;
-}
-/* HERO CTA BUTTONS — PREMIUM DUSTDEEP STYLE */
-.cta {
-  margin: 2rem 0;
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-}
-
-.btn,
-.btn-outline {
-  padding: 0.85rem 1.9rem;
-  border-radius: 40px;
-  font-weight: 500;
-  text-decoration: none;
-  transition: 0.28s ease;
-  font-size: 0.95rem;
-  letter-spacing: 0.3px;
-  display: inline-block;
-}
-
-.btn {
-  background: linear-gradient(90deg, #ffb347, #ff7050);
-  color: #000;
-  box-shadow: 0 0 14px rgba(255,150,80,0.4);
-}
-
-.btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 0 22px rgba(255,150,80,0.55);
-}
-
-.btn-outline {
-  border: 1px solid #ffb347;
-  color: #ffb347;
-}
-
-.btn-outline:hover {
-  background: #ffb347;
-  color: #000;
-  transform: translateY(-3px);
-}
-
-/* ==========================================================
-   UNIVERSAL SECTION
-========================================================== */
-.section {
-  padding: 6rem 1.5rem;
-  max-width: var(--max-width);
-  margin: auto;
-  text-align: center;
-  animation: fadeInUp 1s ease;
-}
-
-.section h2 {
-  font-family: "Space Grotesk", sans-serif;
-  font-size: 2.1rem;
-  margin-bottom: 2.5rem;
-  background: linear-gradient(90deg, var(--accent1), var(--accent2));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* ==========================================================
-   ABOUT — FIXED, CLEAN
-========================================================== */
-.about-short,
-.about-long {
-  max-width: 750px;
-  margin: 0 auto 1.5rem;
-  font-size: 1.15rem;
-  color: #ddd;
-}
-
-.about-long {
-  margin-top: 1.5rem;
-}
-
-/* ==========================================================
-   ARTISTS GRID
-========================================================== */
-.artist-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
-}
-
-.artist-card {
-  background: var(--bg2);
-  padding: 1.5rem;
-  border-radius: 14px;
-  border: 1px solid #222;
-  transition: var(--transition);
-  display: flex;
-  flex-direction: column;
-  min-height: 520px;
-}
-
-.artist-card img {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-  border-radius: 12px;
-  margin-bottom: 1rem;
-}
-
-.artist-card:hover {
-  border-color: var(--accent1);
-  box-shadow: 0 0 25px rgba(255,150,80,0.2);
-  transform: translateY(-5px);
-}
-
-.artist-card h3 {
-  font-family: "Space Grotesk", sans-serif;
-  font-size: 1.3rem;
-  margin-bottom: 0.4rem;
-}
-
-.tag {
-  color: var(--accent1);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  margin-bottom: 0.8rem;
-  font-size: 0.8rem;
-}
-
-.desc {
-  font-size: 0.9rem;
-  opacity: 0.8;
-  margin-bottom: 1rem;
-  flex-grow: 1;
-}
-/* ==========================================================
-   TIKTOK FEED — NEON FRAME
-========================================================== */
-
-.tiktok-frame {
-  max-width: 760px;
-  margin: 0 auto;
-  padding: 1.2rem;
-  border-radius: 20px;
-  
-  background: linear-gradient(#0b0b0b, #0b0b0b) padding-box,
-              linear-gradient(90deg, var(--accent1), var(--accent2)) border-box;
-  border: 2px solid transparent;
-
-  box-shadow: 0 0 25px rgba(255, 150, 80, 0.25);
-}
-
-.tiktok-embed {
-  border-radius: 16px !important;
-  overflow: hidden !important;
-}
-
-@media (max-width: 600px) {
-  .tiktok-frame {
-    padding: 0.8rem;
-    border-radius: 16px;
-  }
-}
-
-/* ==========================================================
-   CONTACT FORM
-========================================================== */
-form {
-  max-width: 500px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-}
-
-form input,
-form textarea {
-  background: #141414;
-  border: 1px solid #222;
-  color: var(--text);
-  padding: 0.9rem;
-  border-radius: 6px;
-  margin-bottom: 1rem;
-}
-
-form textarea {
-  min-height: 140px;
-}
-
-#form-msg {
-  margin-top: 1rem;
-  color: var(--accent1);
-  font-size: 0.95rem;
-  text-align: center;
-}
-/* FORM FIELD WRAPPER */
-.field {
-  position: relative;
-  margin-bottom: 1.2rem;
-}
-
-/* ERROR MESSAGES */
-.error-msg {
-  position: absolute;
-  bottom: -18px;
-  left: 5px;
-  font-size: 0.75rem;
-  color: #ff5b5b;
-  opacity: 0;
-  transform: translateY(4px);
-  transition: 0.3s ease;
-}
-/* ============================================
-   FORM — Animated Validation
-============================================ */
-.input-error {
-  border-color: #ff4d4d !important;
-  box-shadow: 0 0 12px rgba(255, 77, 77, 0.4);
-  animation: shake 0.25s ease-in-out;
-}
-
-.error-text {
-  color: #ff4d4d;
-  font-size: 0.85rem;
-  margin-top: -8px;
-  margin-bottom: 10px;
-  opacity: 0;
-  transform: translateY(-4px);
-  transition: 0.25s ease;
-}
-
-.error-text.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Shake animation */
-@keyframes shake {
-  0% { transform: translateX(0); }
-  25% { transform: translateX(-4px); }
-  50% { transform: translateX(4px); }
-  75% { transform: translateX(-4px); }
-  100% { transform: translateX(0); }
-}
-
-/* SHOW ERROR */
-.field.error .error-msg {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* INPUTS */
-form input,
-form textarea {
-  width: 100%;
-  background: #161616;
-  border: 1px solid #222;
-  padding: 1rem;
-  border-radius: 8px;
-  color: white;
-  font-size: 1rem;
-  transition: border 0.25s, box-shadow 0.25s;
-}
-
-/* INVALID */
-.field.error input,
-.field.error textarea {
-  border-color: #ff5b5b;
-  box-shadow: 0 0 8px rgba(255, 60, 60, 0.4);
-}
-
-/* FOCUS EFFECT */
-form input:focus,
-form textarea:focus {
-  border-color: var(--accent1);
-  box-shadow: 0 0 10px rgba(255,140,60,0.4);
-  outline: none;
-}
-
-/* SUBMIT BUTTON */
-.form-btn {
-  width: 100%;
-  padding: 0.95rem;
-  border-radius: 50px;
-  background: linear-gradient(90deg, var(--accent1), var(--accent2));
-  color: black;
-  border: none;
-  cursor: pointer;
-  font-size: 1.05rem;
-  font-weight: 600;
-  position: relative;
-  overflow: hidden;
-  transition: 0.3s ease;
-}
-
-/* BUTTON HOVER */
-.form-btn:hover {
-  box-shadow: 0 0 18px rgba(255,150,80,0.4);
-}
-
-/* LOADING SPINNER */
-.loader {
-  width: 18px;
-  height: 18px;
-  border: 3px solid rgba(255,255,255,0.3);
-  border-top-color: white;
-  border-radius: 50%;
-  animation: spin 0.7s linear infinite;
-  display: none;
-  margin: auto;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-/* SUCCESS MESSAGE */
-#form-msg {
-  margin-top: 1rem;
-  font-size: 0.95rem;
-  text-align: center;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-
-/* SUCCESS ANIMATION */
-.success {
-  color: #78ff9b;
-  text-shadow: 0 0 10px rgba(120,255,155,0.4);
-  opacity: 1 !important;
-}
-
-.error {
-  color: #ff5b5b;
-  opacity: 1 !important;
-}
-
-/* ==========================================================
-   FOOTER
-========================================================== */
-footer {
-  padding: 2.5rem 1rem;
-  border-top: 1px solid #222;
-  text-align: center;
-  opacity: 0.85;
-}
-
-.socials a {
-  color: var(--accent1);
-  margin: 0 0.4rem;
-  text-decoration: none;
-  transition: var(--transition);
-}
-
-.socials a:hover {
-  color: var(--accent2);
-}
-
-/* ==========================================================
-   RESPONSIVE
-========================================================== */
-@media (max-width: 768px) {
-
-  header nav a {
-    margin: 0 0.5rem;
-    font-size: 0.9rem;
-  }
-
-  .hero {
-    padding-top: 7.5rem;
-  }
-
-  .hero h1 {
-    font-size: 1.7rem;
-  }
-
-  .section {
-    padding: 5rem 1rem;
-  }
-}
-
-@media (max-width: 480px) {
-
-  .artist-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .release-item {
-    min-width: 210px;
-  }
-
-  .release-item img {
-    height: 210px;
-  }
-/* ==========================================================
-   EXTRAS — Neon Hover · Active Navbar · Fade-In · Preloader
-========================================================== */
-
-/* ACTIVE NAV HIGHLIGHT */
-nav a.active {
-  color: var(--accent1);
-  text-shadow: 0 0 10px rgba(255,180,70,0.5);
-  font-weight: 600;
-}
-
-/* NAV HOVER — LUX NEON */
-nav a:hover {
-  color: var(--accent1);
-  text-shadow: 0 0 12px rgba(255,160,70,0.45),
-               0 0 25px rgba(255,160,70,0.25);
-}
-
-/* TIKTOK GLOW ENHANCEMENT */
-.tiktok-frame:hover {
-  box-shadow: 0 0 35px rgba(255,150,80,0.35);
-  transform: translateY(-3px);
-  transition: 0.35s ease;
-}
-
-/* REDUCE SECTION SPACING (more compact site) */
-.section {
-  padding: 4.5rem 1.2rem;   /* Was 6rem */
-}
-
-/* HERO tighter on mobile */
-@media (max-width: 600px) {
-  .hero {
-    padding-top: 6.5rem !important;
-  }
-  .section {
-    padding: 3.5rem 1rem;
-  }
-}
-
-/* ==========================================================
-   FADE-IN ON SCROLL
-========================================================== */
 
 .fade-in {
   opacity: 0;
@@ -578,4 +75,376 @@ nav a:hover {
   width: 90px;
   filter: drop-shadow(0 0 12px rgba(255,160,70,0.5));
   animation: logoFloat 5s infinite ease-in-out;
+}
+
+/* ==========================================================
+   HEADER
+========================================================== */
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 1rem 2rem;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #1a1a1a;
+  z-index: 1000;
+}
+
+header .logo img {
+  height: 34px;
+  transition: var(--transition);
+}
+
+header nav a {
+  color: #fff;
+  margin: 0 1rem;
+  text-decoration: none;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+nav a.active {
+  color: var(--accent1);
+  text-shadow: 0 0 10px rgba(255,180,70,0.45);
+  font-weight: 600;
+}
+
+nav a:hover {
+  color: var(--accent1);
+  text-shadow: 0 0 12px rgba(255,160,70,0.45),
+               0 0 25px rgba(255,160,70,0.25);
+}
+
+/* ==========================================================
+   HERO
+========================================================== */
+
+.hero {
+  padding: 7rem 1rem 4rem;
+  max-width: var(--max-width);
+  margin: auto;
+  animation: fadeInUp 1s ease;
+  text-align: center;
+}
+
+.hero-logo {
+  width: 220px;
+  max-width: 75vw;
+  margin-bottom: 2rem;
+  filter: drop-shadow(0 0 15px rgba(255,179,71,0.4));
+  animation: logoFloat 6s ease-in-out infinite;
+}
+
+.hero h1 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 2.1rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.subtitle {
+  opacity: 0.9;
+  margin-bottom: 1rem;
+}
+
+.mission {
+  font-size: 1.15rem;
+  max-width: 650px;
+  margin: 1.5rem auto 2rem;
+  opacity: 0.9;
+}
+
+.cta {
+  margin: 2rem 0;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.btn,
+.btn-outline {
+  padding: 0.85rem 1.9rem;
+  border-radius: 40px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  letter-spacing: 0.3px;
+  text-decoration: none;
+  transition: 0.28s ease;
+  display: inline-block;
+}
+
+.btn {
+  background: linear-gradient(90deg, #ffb347, #ff7050);
+  color: #000;
+  box-shadow: 0 0 14px rgba(255,150,80,0.35);
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 22px rgba(255,150,80,0.5);
+  text-shadow: 0 0 10px rgba(255,170,70,0.4);
+}
+
+.btn-outline {
+  border: 1px solid #ffb347;
+  color: #ffb347;
+}
+
+.btn-outline:hover {
+  background: #ffb347;
+  color: #000;
+  transform: translateY(-3px);
+  text-shadow: 0 0 10px rgba(255,170,70,0.4);
+}
+
+/* ==========================================================
+   UNIVERSAL SECTION
+========================================================== */
+
+.section {
+  padding: 4.5rem 1.5rem; /* compact */
+  max-width: var(--max-width);
+  margin: auto;
+  text-align: center;
+  animation: fadeInUp 1s ease;
+}
+
+.section h2 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 2.1rem;
+  margin-bottom: 2rem;
+  background: linear-gradient(90deg, var(--accent1), var(--accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ==========================================================
+   ABOUT
+========================================================== */
+
+.about-short,
+.about-long {
+  max-width: 750px;
+  margin: 0 auto 1.5rem;
+  font-size: 1.15rem;
+  color: #ddd;
+}
+
+.about-long { margin-top: 1.5rem; }
+
+/* ==========================================================
+   ARTISTS GRID
+========================================================== */
+
+.artist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.artist-card {
+  background: var(--bg2);
+  padding: 1.5rem;
+  border-radius: 14px;
+  border: 1px solid #222;
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  min-height: 520px;
+}
+
+.artist-card:hover {
+  border-color: var(--accent1);
+  box-shadow: 0 0 25px rgba(255,150,80,0.2);
+  transform: translateY(-5px);
+}
+
+.artist-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+}
+
+/* ==========================================================
+   TIKTOK FEED
+========================================================== */
+
+#watch.section {
+  padding-top: 3.5rem;
+  padding-bottom: 3rem;
+}
+
+.tiktok-frame {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 1rem;
+  border-radius: 20px;
+  background:
+    linear-gradient(#0b0b0b, #0b0b0b) padding-box,
+    linear-gradient(90deg, var(--accent1), var(--accent2)) border-box;
+  border: 2px solid transparent;
+  box-shadow: 0 0 25px rgba(255,150,80,0.25);
+  transition: 0.35s ease;
+}
+
+.tiktok-frame:hover {
+  box-shadow: 0 0 35px rgba(255,150,80,0.35);
+  transform: translateY(-3px);
+}
+
+.tiktok-embed {
+  border-radius: 16px !important;
+  overflow: hidden !important;
+}
+
+/* ==========================================================
+   CONTACT FORM
+========================================================== */
+
+#contact.section {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+form {
+  max-width: 500px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+form input,
+form textarea {
+  width: 100%;
+  background: #161616;
+  border: 1px solid #222;
+  padding: 1rem;
+  border-radius: 8px;
+  color: white;
+  font-size: 1rem;
+  transition: border 0.25s, box-shadow 0.25s;
+  margin-bottom: 1rem;
+}
+
+form textarea {
+  min-height: 140px;
+}
+
+.field {
+  position: relative;
+  margin-bottom: 1.2rem;
+}
+
+.error-text {
+  color: #ff4d4d;
+  font-size: 0.85rem;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: 0.25s ease;
+  margin-top: -8px;
+  margin-bottom: 10px;
+}
+
+.error-text.visible { opacity: 1; transform: translateY(0); }
+
+.input-error {
+  border-color: #ff4d4d !important;
+  box-shadow: 0 0 12px rgba(255,77,77,0.4);
+}
+
+.form-btn {
+  width: 100%;
+  padding: 0.95rem;
+  border-radius: 50px;
+  background: linear-gradient(90deg, var(--accent1), var(--accent2));
+  color: black;
+  border: none;
+  cursor: pointer;
+  font-size: 1.05rem;
+  font-weight: 600;
+  transition: 0.3s ease;
+}
+
+.form-btn:hover {
+  box-shadow: 0 0 18px rgba(255,150,80,0.4);
+}
+
+.loader {
+  width: 18px;
+  height: 18px;
+  border: 3px solid rgba(255,255,255,0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: none;
+  margin: auto;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+#form-msg {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.success {
+  color: #78ff9b;
+  text-shadow: 0 0 10px rgba(120,255,155,0.4);
+  opacity: 1 !important;
+}
+
+.error { color: #ff5b5b; opacity: 1 !important; }
+
+/* ==========================================================
+   FOOTER
+========================================================== */
+
+footer {
+  padding: 2.5rem 1rem;
+  border-top: 1px solid #222;
+  text-align: center;
+  opacity: 0.85;
+}
+
+.socials a {
+  color: var(--accent1);
+  margin: 0 0.4rem;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.socials a:hover { color: var(--accent2); }
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media (max-width: 768px) {
+  header nav a {
+    margin: 0 0.5rem;
+    font-size: 0.9rem;
+  }
+  .hero h1 { font-size: 1.7rem; }
+  .section { padding: 4rem 1rem; }
+}
+
+@media (max-width: 600px) {
+  .hero { padding-top: 6.5rem !important; }
+  .section { padding: 3.5rem 1rem; }
+}
+
+@media (max-width: 480px) {
+  .artist-grid { grid-template-columns: 1fr; }
 }
